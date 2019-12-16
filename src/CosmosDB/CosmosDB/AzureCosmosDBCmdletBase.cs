@@ -15,10 +15,9 @@
 using Microsoft.Azure.Commands.ResourceManager.Common;
 using System;
 using System.Collections.Generic;
-using Microsoft.Azure.Management.CosmosDB.Fluent;
+using Microsoft.Azure.Management.CosmosDB;
 using Microsoft.Azure.Commands.Common.Authentication;
 using AzureEnvironment = Microsoft.Azure.Commands.Common.Authentication.Abstractions.AzureEnvironment;
-using Microsoft.Azure.PowerShell.Cmdlets.CosmosDB;
 using Microsoft.Rest;
 
 namespace Microsoft.Azure.Commands.CosmosDB
@@ -29,7 +28,7 @@ namespace Microsoft.Azure.Commands.CosmosDB
     public class AzureCosmosDBCmdletBase : AzureRMCmdlet
     {
         private Dictionary<string, List<string>> _defaultRequestHeaders;
-        private ICosmosDB _cosmosDBManagementClient;
+        private CosmosDBManagementClient _cosmosDBManagementClient;
         public const string NameParameterSet = "ByNameParameterSet";
         public const string ObjectParameterSet = "ByObjectParameterSet";
         public const string ResourceIdParameterSet = "ByResourceIdParameterSet";
@@ -38,7 +37,7 @@ namespace Microsoft.Azure.Commands.CosmosDB
         /// <summary>
         /// Gets or sets the CosmosDB Client
         /// </summary>
-        public ICosmosDB CosmosDBManagementClient
+        public CosmosDBManagementClient CosmosDBManagementClient
         {
             get
             {

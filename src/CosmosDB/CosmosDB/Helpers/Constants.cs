@@ -44,6 +44,9 @@ namespace Microsoft.Azure.Commands.CosmosDB.Helpers
         //Sql cmdlets help messages
         public const string DatabaseNameHelpMessage = "Database name.";
         public const string ContainerNameHelpMessage = "Container name.";
+        public const string StoredProcedureNameHelpMessage = "Stored Prcodecure Name.";
+        public const string UserDefinedFunctionNameHelpMessage = "User Defined Function Name.";
+        public const string TriggerNameHelpMessage = "Trigger name.";
         public const string IndexingPolicyHelpMessage = "Indexing Policy Object of type Microsoft.Azure.Commands.CosmosDB.PSSqlIndexingPolicy.";
         public const string UniqueKeyPolciyHelpMessage = "UniqueKeyPolicy Object of type Microsoft.Azure.Commands.CosmosDB.PSSqlUniqueKeyPolicy. ";
         public const string ConflictResolutionPolicyHelpMessage = "ConflictResolutionPolicy Object of type PSSqlConflictResolutionPolicy. ";
@@ -54,16 +57,26 @@ namespace Microsoft.Azure.Commands.CosmosDB.Helpers
         public const string SqlContainerDetailedParamHelpMessage = "If provided then, the cmdlet returns the container with the throughput value. ";
         public const string SqlContainerObjectHelpMessage = "Sql Container object.";
         public const string SqlDatabaseThroughputHelpMessage = "The throughput of SQL database (RU/s). Default value is 400.";
+        public const string SqlDatabaseDetailedParamHelpMessage = "If provided then, the cmdlet returns the container with the throughput value. ";
         public const string ConflictResolutionPolicyTypeHelpMessage = "Can have the values: LastWriterWins, Custom, Manual.";
         public const string ConflictResolutionPolicyPathHelpMessage = "To be provided when the type is LastWriterWins.";
         public const string ConflictResolutionPolicyStoredProcedureNameHelpMessage = "To be provided when the type is custom.";
         public const string UniqueKeyPathHelpMessage = "Array of string of path values";
         public const string IndexingPolicyIncludedPathHelpMessage = "Array of strings containing includedPath (Specifies a path within a JSON document to be included in the Azure Cosmos DB service.) elements. ";
         public const string IndexingPolicyExcludedPathHelpMessage = "Array of strings containing excludedPath(Specifies a path within a JSON document to be excluded in the Azure Cosmos DB service.)  elements. ";
-        public const string IndexingPolicyCompositeIndexHelpMessage = " Array of PSSqlCompositeIndex.";
-        public const string IndexingPolicySpatialIndexHelpMessage = "Array of PSSqlSpatialSpec.";
+        public const string IndexingPolicyAutomaticHelpMessage = "Bool to indicate if the indexing policy is automatic";
+        public const string IndexingPolicyIndexingModeIndexHelpMessage = " indicates the indexing mode. Possible values include: 'Consistent', 'Lazy', 'None'";
         public const string SpatialTypeHelpMessage = "Array of strings with acceptable values: Point, LineString, Polygon, MultiPolygon. Represent’s paths spatial type.";
         public const string SpatialPathHelpMessage = "Path in JSON document to index.";
+        public const string SortOrderHelpMessage = "The sort order of the CompositeIndex";
+        public const string PathHelpMessage = "String value of the path";
+        public const string PartitionKeyVersionHelpMessage = "The version of the partition key definition";
+        public const string PartitionKeyKindHelpMessage = "The kind of algorithm used for partitioning. Possible values include: 'Hash', 'Range'";
+        public const string StoredProcedureBodyHelpMessage = "The body of the Stored Procedure.";
+        public const string UserDefinedFunctionBodyHelpMessage = "The body of the User Defined Function.";
+        public const string TriggerBodyHelpMessage = "The body of the Trigger.";
+        public const string TriggerOperationHelpMessage = "The operation the trigger is associated with. Possible values include: 'All', 'Create', 'Update', 'Delete', 'Replace' ";
+        public const string TriggerTypeHelpMessage = "Type of the Trigger. Possible values include: 'Pre', 'Post'";
 
     }
 }

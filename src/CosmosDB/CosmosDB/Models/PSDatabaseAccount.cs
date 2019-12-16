@@ -15,7 +15,7 @@
 namespace Microsoft.Azure.Commands.CosmosDB.Models
 {
     using System.Collections.Generic;
-    using Microsoft.Azure.Management.CosmosDB.Fluent.Models;
+    using Microsoft.Azure.Management.CosmosDB.Models;
 
     public class PSDatabaseAccount
     {
@@ -23,46 +23,68 @@ namespace Microsoft.Azure.Commands.CosmosDB.Models
         {
         }        
         
-        public PSDatabaseAccount(DatabaseAccountInner databaseAccountInner)
+        public PSDatabaseAccount(DatabaseAccountGetResults databaseAccountGetResults)
         {
-            Id = databaseAccountInner.Id;
-            Name = databaseAccountInner.Name;
-            FailoverPolicies = databaseAccountInner.FailoverPolicies;
-            ReadLocations = databaseAccountInner.ReadLocations;
-            WriteLocations = databaseAccountInner.WriteLocations;
-            Capabilities = databaseAccountInner.Capabilities;
-            ConsistencyPolicy = databaseAccountInner.ConsistencyPolicy;
-            EnableAutomaticFailover = databaseAccountInner.EnableAutomaticFailover;
-            IsVirtualNetworkFilterEnabled = databaseAccountInner.IsVirtualNetworkFilterEnabled;
-            IpRangeFilter = databaseAccountInner.IpRangeFilter;
-            DatabaseAccountOfferType = databaseAccountInner.DatabaseAccountOfferType;
-            DocumentEndpoint = databaseAccountInner.DocumentEndpoint;
-            ProvisioningState = databaseAccountInner.ProvisioningState;
-            Kind = databaseAccountInner.Kind;
-            VirtualNetworkRules = databaseAccountInner.VirtualNetworkRules;
-            EnableMultipleWriteLocations = databaseAccountInner.EnableMultipleWriteLocations;
+            Id = databaseAccountGetResults.Id;
+            Name = databaseAccountGetResults.Name;
+            EnableCassandraConnector = databaseAccountGetResults.EnableCassandraConnector;
+            FailoverPolicies = databaseAccountGetResults.FailoverPolicies;
+            ReadLocations = databaseAccountGetResults.ReadLocations;
+            WriteLocations = databaseAccountGetResults.WriteLocations;
+            Capabilities = databaseAccountGetResults.Capabilities;
+            ConsistencyPolicy = databaseAccountGetResults.ConsistencyPolicy;
+            EnableAutomaticFailover = databaseAccountGetResults.EnableAutomaticFailover;
+            IsVirtualNetworkFilterEnabled = databaseAccountGetResults.IsVirtualNetworkFilterEnabled;
+            IpRangeFilter = databaseAccountGetResults.IpRangeFilter;
+            DatabaseAccountOfferType = databaseAccountGetResults.DatabaseAccountOfferType;
+            DocumentEndpoint = databaseAccountGetResults.DocumentEndpoint;
+            ProvisioningState = databaseAccountGetResults.ProvisioningState;
+            Kind = databaseAccountGetResults.Kind;
+            VirtualNetworkRules = databaseAccountGetResults.VirtualNetworkRules;
+            EnableMultipleWriteLocations = databaseAccountGetResults.EnableMultipleWriteLocations;
+            ConnectorOffer = databaseAccountGetResults.ConnectorOffer;
+            DisableKeyBasedMetadataWriteAccess = databaseAccountGetResults.DisableKeyBasedMetadataWriteAccess;
         }
 
         //
+        //
         // Summary:
-        //     Gets or sets ResourceId
+        //     Gets or sets the Id of the CosmosDB Account
         public string Id { get; set; }
         //
+        //
         // Summary:
-        //     Gets or sets Resource Name
+        //     Gets or sets the Name of the CosmosDB Account
         public string Name { get; set; }
         //
-        // Summary:
-        //     Gets or sets an array that contains the regions ordered by their failover priorities.
-        public IList<FailoverPolicyInner> FailoverPolicies { get; set; }
         //
         // Summary:
-        //     Gets or sets an array that contains of the read locations enabled for the Cosmos DB account.
-        public IList<Location> ReadLocations { get; set; }
+        //     Gets or sets enables the cassandra connector on the Cosmos DB C* account
+        public bool? EnableCassandraConnector { get; set; }
         //
         // Summary:
-        //     Gets or sets an array that contains the write location for the Cosmos DB account.
-        public IList<Location> WriteLocations { get; set; }
+        //     Gets or sets enables the account to write in multiple locations
+        public bool? EnableMultipleWriteLocations { get; set; }
+        //
+        // Summary:
+        //     Gets or sets list of Virtual Network ACL rules configured for the Cosmos DB account.
+        public IList<VirtualNetworkRule> VirtualNetworkRules { get; set; }
+        //
+        // Summary:
+        //     Gets an array that contains the regions ordered by their failover priorities.
+        public IList<FailoverPolicy> FailoverPolicies { get; }
+        //
+        // Summary:
+        //     Gets an array that contains all of the locations enabled for the Cosmos DB account.
+        public IList<Location> Locations { get; }
+        //
+        // Summary:
+        //     Gets an array that contains of the read locations enabled for the Cosmos DB account.
+        public IList<Location> ReadLocations { get; }
+        //
+        // Summary:
+        //     Gets an array that contains the write location for the Cosmos DB account.
+        public IList<Location> WriteLocations { get; }
         //
         // Summary:
         //     Gets or sets list of Cosmos DB capabilities for the account
@@ -91,13 +113,13 @@ namespace Microsoft.Azure.Commands.CosmosDB.Models
         public string IpRangeFilter { get; set; }
         //
         // Summary:
-        //     Gets or sets the offer type for the Cosmos DB database account. Default value: Standard.
+        //     Gets the offer type for the Cosmos DB database account. Default value: Standard.
         //     Possible values include: 'Standard'
-        public DatabaseAccountOfferType? DatabaseAccountOfferType { get; set; }
+        public DatabaseAccountOfferType? DatabaseAccountOfferType { get; }
         //
         // Summary:
-        //     Gets or sets the connection endpoint for the Cosmos DB database account.
-        public string DocumentEndpoint { get; set; }
+        //     Gets the connection endpoint for the Cosmos DB database account.
+        public string DocumentEndpoint { get; }
         //
         public string ProvisioningState { get; set; }
         //
@@ -108,12 +130,13 @@ namespace Microsoft.Azure.Commands.CosmosDB.Models
         public string Kind { get; set; }
         //
         // Summary:
-        //     Gets or sets list of Virtual Network ACL rules configured for the Cosmos DB account.
-        public IList<VirtualNetworkRule> VirtualNetworkRules { get; set; }
+        //     Gets or sets the cassandra connector offer type for the Cosmos DB database C*
+        //     account. Possible values include: 'Small'
+        public string ConnectorOffer { get; set; }
         //
         // Summary:
-        //     Gets or sets enables the account to write in multiple locations
-        public bool? EnableMultipleWriteLocations { get; set; }
-
+        //     Gets or sets disable write operations on metadata resources (databases, containers,
+        //     throughput) via account keys
+        public bool? DisableKeyBasedMetadataWriteAccess { get; set; }
     }
 }

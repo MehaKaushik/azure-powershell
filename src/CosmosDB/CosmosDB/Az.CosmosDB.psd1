@@ -56,7 +56,7 @@ DotNetFrameworkVersion = '4.7.2'
 RequiredModules = @(@{ModuleName = 'Az.Accounts'; ModuleVersion = '1.6.0'; })
 
 # Assemblies that must be loaded prior to importing this module
-RequiredAssemblies = '.\Microsoft.Azure.Management.CosmosDB.Fluent.dll'
+RequiredAssemblies = '.\Microsoft.Azure.Management.CosmosDB.dll'
 
 # Script files (.ps1) that are run in the caller's environment prior to importing this module.
 # ScriptsToProcess = @()
@@ -76,7 +76,17 @@ FunctionsToExport = @()
 # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
 CmdletsToExport = 'New-AzCosmosDBAccount', 'Remove-AzCosmosDBAccount', 'Get-AzCosmosDBAccount',
                'Get-AzCosmosDBAccountKey', 'New-AzCosmosDBAccountKey', 'Update-AzCosmosDBAccount', 
-               'Update-AzCosmosDBAccountRegion', 'Update-AzCosmosDBAccountFailoverPriority'
+               'Update-AzCosmosDBAccountRegion', 'Update-AzCosmosDBAccountFailoverPriority',
+               'Get-AzCosmosDBSqlContainer', 'Get-AzCosmosDBSqlContainerThroughput',
+               'Get-AzCosmosDBSqlDatabase', 'Get-AzCosmosDBSqlDatabaseThroughput',
+               'Get-AzCosmosDBSqlStoredProcedure', 'Get-AzCosmosDBSqlTrigger', 'Get-AzCosmosDBSqlUserDefinedFunction',
+               'Set-AzCosmosDBSqlStoredProcedure', 'Set-AzCosmosDBSqlTrigger', 'Set-AzCosmosDBSqlUserDefinedFunction',
+               'Remove-AzCosmosDBSqlStoredProcedure', 'Remove-AzCosmosDBSqlTrigger', 'Remove-AzCosmosDBSqlUserDefinedFunction',
+               'New-AzCosmosDBSqlCompositeIndex', 'New-AzCosmosDBSqlConflictResolutionPolicy',
+               'New-AzCosmosDBSqlIndexingPolicy', 'New-AzCosmosDBSqlSpatialSpec',
+               'New-AzCosmosDBSqlUniqueKey', 'New-AzCosmosDBSqlUniqueKeyPolicy',
+               'Remove-AzCosmosDBSqlContainer', 'Remove-AzCosmosDBSqlDatabase',
+               'Set-AzCosmosDBSqlContainer', 'Set-AzCosmosDBSqlDatabase'
  
 # Variables to export from this module
 # VariablesToExport = @()

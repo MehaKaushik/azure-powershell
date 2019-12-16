@@ -19,7 +19,7 @@ using System.IO;
 using System.Linq;
 using Microsoft.Azure.Commands.Common.Authentication;
 using Microsoft.Azure.Management.Internal.Resources;
-using Microsoft.Azure.PowerShell.Cmdlets.CosmosDB;
+using Microsoft.Azure.Management.CosmosDB;
 using Microsoft.Azure.Test.HttpRecorder;
 using Microsoft.Rest.ClientRuntime.Azure.TestFramework;
 using Microsoft.WindowsAzure.Commands.ScenarioTest;
