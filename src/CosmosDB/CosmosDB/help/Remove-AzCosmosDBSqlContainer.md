@@ -28,6 +28,8 @@ Remove-AzCosmosDBSqlContainer [-Name <String>] [-InputObject <PSSqlContainerGetR
 ## DESCRIPTION
 The **Remove-AzCosmosDBSqlContainer** cmdlet deletes the CosmosDB Sql Container corresponding to the given ResourceGroupName, AccountName, DatabaseName and ContainerName.
 
+## EXAMPLES
+
 ### Example 1
 ```powershell
 PS C:\> Remove-AzCosmosDBSqlContainer -ResourceGroupName {resourceGroupName} -AccountName {accountName} -DatabaseName {databaseName} -Name {containerName}
