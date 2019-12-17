@@ -1,14 +1,14 @@
 ---
 external help file: Microsoft.Azure.PowerShell.Cmdlets.CosmosDB.dll-Help.xml
 Module Name: Az.CosmosDB
-online version:
+online version: https://docs.microsoft.com/en-us/powershell/module/az.cosmosdb/set-azcosmosdbsqlcontainer
 schema: 2.0.0
 ---
 
 # Set-AzCosmosDBSqlContainer
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Creates a new or updates an existing CosmosDB Sql Container.
 
 ## SYNTAX
 
@@ -31,16 +31,26 @@ Set-AzCosmosDBSqlContainer [-IndexingPolicy <PSSqlIndexingPolicy>] [-PartitionKe
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+The **Set-AzCosmosDBSqlContainer** cmdlet creates a new or updates an existing CosmosDB Sql Container.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
-```
+PS C:\> Set-AzCosmosDBSqlContainer -ResourceGroupName {resourceGroupName} -AccountName {accountName} -DatabaseName {databaseName} -Name {containerName} -PartitionKeyKind Hash -PartitionKeyPath {samplePath}
 
-{{ Add example description here }}
+Name                     : {containerName}
+Id                       : {containerId}
+SqlContainerGetResultsId :
+IndexingPolicy           :
+PartitionKey             :
+DefaultTtl               :
+UniqueKeyPolicy          :
+ConflictResolutionPolicy :
+_rid                     :
+_ts                      :
+_etag                    :
+```
 
 ## PARAMETERS
 

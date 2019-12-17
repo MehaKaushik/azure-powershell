@@ -1,14 +1,14 @@
 ---
 external help file: Microsoft.Azure.PowerShell.Cmdlets.CosmosDB.dll-Help.xml
 Module Name: Az.CosmosDB
-online version:
+online version: https://docs.microsoft.com/en-us/powershell/module/az.cosmosdb/new-azcosmosdbsqlindexingpolicy
 schema: 2.0.0
 ---
 
 # New-AzCosmosDBSqlIndexingPolicy
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Creates a new CosmosDB Sql IndexingPolicy object.
 
 ## SYNTAX
 
@@ -18,16 +18,19 @@ New-AzCosmosDBSqlIndexingPolicy [-IncludedPath <String[]>] [-ExcludedPath <Strin
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+The **New-AzCosmosDBSqlIndexingPolicy** cmdlet creates a new object of type PSSqlIndexingPolicy.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
-```
+PS C:\> New-AzCosmosDBSqlIndexingPolicy -IncludedPath {includedPath1},{includedPath2},{includedPath3} -ExcludedPath {excludedPath1},{excludedPath2},{excludedPath3} -IndexingMode {indexingMode}
 
-{{ Add example description here }}
+Automatic IndexingMode IncludedPaths                                    ExcludedPaths
+--------- ------------ -------------                                    -------------
+          k            {includedPath1, includedPath2, includedPath3}    {excludedPath1}
+
+```
 
 ## PARAMETERS
 

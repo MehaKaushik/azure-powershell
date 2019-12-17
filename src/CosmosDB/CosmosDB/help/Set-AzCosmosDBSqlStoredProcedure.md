@@ -1,14 +1,15 @@
 ---
 external help file: Microsoft.Azure.PowerShell.Cmdlets.CosmosDB.dll-Help.xml
 Module Name: Az.CosmosDB
-online version:
+online version: https://docs.microsoft.com/en-us/powershell/module/az.cosmosdb/set-azcosmosdbsqlstoredprocedure
+
 schema: 2.0.0
 ---
 
 # Set-AzCosmosDBSqlStoredProcedure
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Creates a new or updates an existing CosmosDB Sql StoredProcedure.
 
 ## SYNTAX
 
@@ -26,16 +27,23 @@ Set-AzCosmosDBSqlStoredProcedure [-Name <String>] [-Body <String>] [-InputObject
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+The **Set-AzCosmosDBSqlStoredProcedure** cmdlet creates a new or updates an existing CosmosDB Sql StoredProcedure.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
-```
+PS C:\> Set-AzCosmosDBSqlStoredProcedure -AccountName {accountName} -ResourceGroupName {resourceGroupName} -DatabaseName {databaseName} -Name {storedProcedureName} -ContainerName {containerName} -Body {sampleBody}
 
-{{ Add example description here }}
+Name                           : {storedProcedureName}
+Id                             : {storedProcedureId}
+SqlStoredProcedureGetResultsId :
+Body                           :
+_rid                           :
+_ts                            :
+_etag                          :
+
+```
 
 ## PARAMETERS
 

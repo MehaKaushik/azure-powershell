@@ -1,14 +1,14 @@
 ---
 external help file: Microsoft.Azure.PowerShell.Cmdlets.CosmosDB.dll-Help.xml
 Module Name: Az.CosmosDB
-online version:
+online version: https://docs.microsoft.com/en-us/powershell/module/az.cosmosdb/remove-azcosmosdbsqltrigger
 schema: 2.0.0
 ---
 
 # Remove-AzCosmosDBSqlTrigger
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Deletes the CosmosDB Sql Trigger.
 
 ## SYNTAX
 
@@ -19,16 +19,15 @@ Remove-AzCosmosDBSqlTrigger [-ResourceGroupName <String>] [-AccountName <String>
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+The **Remove-AzCosmosDBSqlTrigger** cmdlet deletes the CosmosDB Sql Trigger corresponding to the given ResourceGroupName, AccountName and DatabaseName.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
-```
+PS C:\> Remove-AzCosmosDBSqlTrigger -ResourceGroupName {resourceGroupName} -AccountName {accountName} -DatabaseName {databaseName} -ContainerName {containerName} -Name {triggerName} 
 
-{{ Add example description here }}
+```
 
 ## PARAMETERS
 

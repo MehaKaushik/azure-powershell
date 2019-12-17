@@ -1,14 +1,14 @@
 ---
 external help file: Microsoft.Azure.PowerShell.Cmdlets.CosmosDB.dll-Help.xml
 Module Name: Az.CosmosDB
-online version:
+online version: https://docs.microsoft.com/en-us/powershell/module/az.cosmosdb/get-azcosmosdbsqltrigger
 schema: 2.0.0
 ---
 
 # Get-AzCosmosDBSqlTrigger
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Gets the CosmosDB Sql Trigger.
 
 ## SYNTAX
 
@@ -19,13 +19,24 @@ Get-AzCosmosDBSqlTrigger [-ResourceGroupName <String>] [-AccountName <String>] [
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+The **Get-AzCosmosDBSqlTrigger** cmdlet gets the list of all existing CosmosDB Sql Triggers for a given ResourceGroupName, AccountName, DatabaseName and ContainerName and gets a single CosmosDB Sql Trigger for a given ResourceGroupName, AccountName, DatabaseName, ContainerName and TriggerName.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Get-AzCosmosDBSqlTrigger -AccountName {accountName} -ResourceGroupName {resourceGroupName} -DatabaseName {databaseName} -Name {triggerName} -ContainerName {containerName} 
+
+Name                   : {triggerName}
+Id                     : {triggerId}
+SqlTriggerGetResultsId :
+Body                   :
+TriggerType            :
+TriggerOperation       :
+_rid                   :
+_ts                    :
+_etag                  :
+
 ```
 
 {{ Add example description here }}

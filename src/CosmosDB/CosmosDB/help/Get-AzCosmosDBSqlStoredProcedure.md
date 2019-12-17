@@ -1,14 +1,14 @@
 ---
 external help file: Microsoft.Azure.PowerShell.Cmdlets.CosmosDB.dll-Help.xml
 Module Name: Az.CosmosDB
-online version:
+online version: https://docs.microsoft.com/en-us/powershell/module/az.cosmosdb/get-azcosmosdbsqlstoredprocedure
 schema: 2.0.0
 ---
 
 # Get-AzCosmosDBSqlStoredProcedure
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Gets the CosmosDB Sql StoredProcedure.
 
 ## SYNTAX
 
@@ -19,16 +19,23 @@ Get-AzCosmosDBSqlStoredProcedure [-ResourceGroupName <String>] [-AccountName <St
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+The **Get-AzCosmosDBSqlStoredProcedure** cmdlet gets the list of all existing CosmosDB Sql StoredProcedures for a given ResourceGroupName, AccountName, DatabaseName and ContainerName and gets a single CosmosDB Sql StoredProcedure for a given ResourceGroupName, AccountName, DatabaseName, ContainerName and StoredProcedureName.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
-```
+PS C:\> Get-AzCosmosDBSqlStoredProcedure -AccountName {accountName} -ResourceGroupName {resourceGroupName} -DatabaseName {databaseName} -Name {storedProcedureName} -ContainerName {containerName}
 
-{{ Add example description here }}
+Name                           : {storedProcedureName}
+Id                             : {storedProcedureId}
+SqlStoredProcedureGetResultsId :
+Body                           :
+_rid                           :
+_ts                            :
+_etag                          :
+
+```
 
 ## PARAMETERS
 

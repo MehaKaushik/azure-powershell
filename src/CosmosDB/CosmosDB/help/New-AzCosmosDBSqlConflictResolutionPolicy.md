@@ -1,14 +1,14 @@
 ---
 external help file: Microsoft.Azure.PowerShell.Cmdlets.CosmosDB.dll-Help.xml
 Module Name: Az.CosmosDB
-online version:
+online version: https://docs.microsoft.com/en-us/powershell/module/az.cosmosdb/new-azcosmosdbsqlconflictresolutionpolicy
 schema: 2.0.0
 ---
 
 # New-AzCosmosDBSqlConflictResolutionPolicy
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Creates a new CosmosDB Sql ConflictResolutionPolicy object.
 
 ## SYNTAX
 
@@ -18,17 +18,19 @@ New-AzCosmosDBSqlConflictResolutionPolicy [-Type <String>] [-Path <String>] [-St
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+The **New-AzCosmosDBSqlConflictResolutionPolicy** cmdlet creates a new object of type PSSqlConflictResolutionPolicy.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> New-AzCosmosDBSqlConflictResolutionPolicy -Type {type} -Path {path} -StoredProcedureName {storedProcedureName}
+
+Type   Path  StoredProcedureName
+----   ----  -------------------
+{type} {path} {storedProcedureName}
+
 ```
-
-{{ Add example description here }}
-
 ## PARAMETERS
 
 ### -DefaultProfile

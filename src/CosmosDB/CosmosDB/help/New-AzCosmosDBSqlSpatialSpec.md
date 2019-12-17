@@ -1,14 +1,14 @@
 ---
 external help file: Microsoft.Azure.PowerShell.Cmdlets.CosmosDB.dll-Help.xml
 Module Name: Az.CosmosDB
-online version:
+online version: https://docs.microsoft.com/en-us/powershell/module/az.cosmosdb/new-azcosmosdbsqlspatialspec
 schema: 2.0.0
 ---
 
 # New-AzCosmosDBSqlSpatialSpec
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Creates a new CosmosDB Sql SpatialSpec object.
 
 ## SYNTAX
 
@@ -18,16 +18,19 @@ New-AzCosmosDBSqlSpatialSpec [-SpatialType <String[]>] [-Path <String>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+The **New-AzCosmosDBSqlSpatialSpec** cmdlet creates a new object of type PSSqlSpatialSpec.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
-```
+PS C:\> New-AzCosmosDBSqlSpatialSpec -SpatialType {spatialType} -Path {path}
 
-{{ Add example description here }}
+SpatialType     Path
+-----------     ----
+{spatialType}   {path}
+
+```
 
 ## PARAMETERS
 
