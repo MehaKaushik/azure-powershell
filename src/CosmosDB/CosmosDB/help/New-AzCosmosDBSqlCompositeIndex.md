@@ -1,14 +1,14 @@
 ---
 external help file: Microsoft.Azure.PowerShell.Cmdlets.CosmosDB.dll-Help.xml
 Module Name: Az.CosmosDB
-online version:
+online version: https://docs.microsoft.com/en-us/powershell/module/az.cosmosdb/new-azcosmosdbsqlcompositeindex
 schema: 2.0.0
 ---
 
 # New-AzCosmosDBSqlCompositeIndex
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Creates a new CosmosDB Sql Composite Index object.
 
 ## SYNTAX
 
@@ -18,16 +18,19 @@ New-AzCosmosDBSqlCompositeIndex [-SortOrder <String>] [-Path <String>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+The **New-AzCosmosDBSqlCompositeIndex** cmdlet creates a new object of type PSSqlCompositeIndex.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
-```
+PS C:\> New-AzCosmosDBSqlCompositeIndex -SortOrder Ascending -Path {sampleValue}
 
-{{ Add example description here }}
+SortOrder Path
+--------- ----
+Ascending {sampleValue}
+
+```
 
 ## PARAMETERS
 

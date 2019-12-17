@@ -1,14 +1,14 @@
 ---
 external help file: Microsoft.Azure.PowerShell.Cmdlets.CosmosDB.dll-Help.xml
 Module Name: Az.CosmosDB
-online version:
+online version: https://docs.microsoft.com/en-us/powershell/module/az.cosmosdb/get-azcosmosdbsqldatabasethroughput
 schema: 2.0.0
 ---
 
 # Get-AzCosmosDBSqlDatabaseThroughput
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Gets the throughput settings corresponding to a CosmosDB Sql Database.
 
 ## SYNTAX
 
@@ -25,16 +25,21 @@ Get-AzCosmosDBSqlDatabaseThroughput [-InputObject <PSDatabaseAccount>]
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+The **Get-AzCosmosDBSqlDatabaseThroughput** cmdlet gets the throughput settings corresponding to a CosmosDB Sql Database.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
-```
+PS C:\> Get-AzCosmosDBSqlDatabaseThroughput -AccountName {accountName} -ResourceGroupName {resourceGroupName} -Name {databaseName}
 
-{{ Add example description here }}
+Name                : {throughputResourceName}
+Id                  : {throughputId}
+Throughput          : 0
+MinimumThroughput   :
+OfferReplacePending :
+
+```
 
 ## PARAMETERS
 

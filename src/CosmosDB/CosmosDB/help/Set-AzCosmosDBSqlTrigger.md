@@ -1,14 +1,14 @@
 ---
 external help file: Microsoft.Azure.PowerShell.Cmdlets.CosmosDB.dll-Help.xml
 Module Name: Az.CosmosDB
-online version:
+online version: https://docs.microsoft.com/en-us/powershell/module/az.cosmosdb/set-azcosmosdbsqltrigger
 schema: 2.0.0
 ---
 
 # Set-AzCosmosDBSqlTrigger
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Creates a new or updates an existing CosmosDB Sql Trigger.
 
 ## SYNTAX
 
@@ -19,16 +19,25 @@ Set-AzCosmosDBSqlTrigger [-ResourceGroupName <String>] [-AccountName <String>] [
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+The **Set-AzCosmosDBSqlTrigger** cmdlet creates a new or updates an existing CosmosDB Sql Trigger.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
-```
+PS C:\> Set-AzCosmosDBSqlTrigger -AccountName {accountName} -ResourceGroupName {resourceGroupName} -DatabaseName {databaseName} -Name {triggerName} -ContainerName {containerName} -Body {sampleBody}
 
-{{ Add example description here }}
+Name                   : {triggerName}
+Id                     : {triggerId}
+SqlTriggerGetResultsId :
+Body                   :
+TriggerType            :
+TriggerOperation       :
+_rid                   :
+_ts                    :
+_etag                  :
+
+```
 
 ## PARAMETERS
 

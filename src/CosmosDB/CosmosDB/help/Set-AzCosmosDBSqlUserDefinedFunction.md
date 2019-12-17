@@ -1,14 +1,14 @@
 ---
 external help file: Microsoft.Azure.PowerShell.Cmdlets.CosmosDB.dll-Help.xml
 Module Name: Az.CosmosDB
-online version:
+online version: https://docs.microsoft.com/en-us/powershell/module/az.cosmosdb/set-azcosmosdbsqluserdefinedfunction
 schema: 2.0.0
 ---
 
 # Set-AzCosmosDBSqlUserDefinedFunction
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Creates a new or updates an existing CosmosDB Sql UserDefinedFunction.
 
 ## SYNTAX
 
@@ -19,16 +19,23 @@ Set-AzCosmosDBSqlUserDefinedFunction [-ResourceGroupName <String>] [-AccountName
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+The **Set-AzCosmosDBSqlUserDefinedFunction** cmdlet creates a new or updates an existing CosmosDB Sql UserDefinedFunction.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
-```
+PS C:\> Set-AzCosmosDBSqlUserDefinedFunction -AccountName {accountName} -ResourceGroupName {resourceGroupName} -DatabaseName {databaseName} -Name {udfName} -ContainerName {containerName} -Body {sampleBody}
 
-{{ Add example description here }}
+Name                               : {udfName}
+Id                                 : {udfId}
+SqlUserDefinedFunctionGetResultsId :
+Body                               :
+_rid                               :
+_ts                                :
+_etag                              :
+
+```
 
 ## PARAMETERS
 

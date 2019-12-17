@@ -1,14 +1,14 @@
 ---
 external help file: Microsoft.Azure.PowerShell.Cmdlets.CosmosDB.dll-Help.xml
 Module Name: Az.CosmosDB
-online version:
+online version: https://docs.microsoft.com/en-us/powershell/module/az.cosmosdb/set-azcosmosdbsqldatabase
 schema: 2.0.0
 ---
 
 # Set-AzCosmosDBSqlDatabase
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Creates a new or updates an existing CosmosDB Sql Database.
 
 ## SYNTAX
 
@@ -26,16 +26,23 @@ Set-AzCosmosDBSqlDatabase [-Name <String>] [-Throughput <Int32>] [-InputObject <
 ```
 
 ## DESCRIPTION
-{{ Fill in the Description }}
+The **Set-AzCosmosDBSqlDatabase** cmdlet creates a new or updates an existing CosmosDB Sql Database.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
-```
+PS C:\> Set-AzCosmosDBSqlDatabase -ResourceGroupName {resourceGroupName} -AccountName {accountName}-Name {databaseName}
 
-{{ Add example description here }}
+Name                    : {databaseName}
+Id                      : {databaseId}
+SqlDatabaseGetResultsId :
+_rid                    :
+_ts                     :
+_etag                   :
+_colls                  :
+_users                  :
+```
 
 ## PARAMETERS
 

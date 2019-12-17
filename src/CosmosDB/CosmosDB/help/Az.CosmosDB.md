@@ -1,82 +1,81 @@
 ---
 Module Name: Az.CosmosDB
 Module Guid: 91832aaa-dc11-4583-8239-bce5fd531604
-Download Help Link: {{ Update Download Link }}
-Help Version: {{ Please enter version of help manually (X.X.X.X) format }}
+Download Help Link: {{ https://docs.microsoft.com/en-us/powershell/module/az.cosmosdb }}
+Help Version: {{ 1.0.0 }}
 Locale: en-US
 ---
 
 # Az.CosmosDB Module
 ## Description
-{{ Fill in the Description }}
+The topics in this section document the Azure PowerShell cmdlets for Azure CosmosDB in the Azure Resource Manager (ARM) framework. The cmdlets exist in the Microsoft.Azure.Commands.CosmosDB namespace.
 
 ## Az.CosmosDB Cmdlets
 ### [Get-AzCosmosDBSqlContainer](Get-AzCosmosDBSqlContainer.md)
-{{ Fill in the Description }}
+Gets the CosmosDB Sql Container.
 
 ### [Get-AzCosmosDBSqlContainerThroughput](Get-AzCosmosDBSqlContainerThroughput.md)
-{{ Fill in the Description }}
+Gets the throughput settings corresponding to a CosmosDB Sql Container.
 
 ### [Get-AzCosmosDBSqlDatabase](Get-AzCosmosDBSqlDatabase.md)
-{{ Fill in the Description }}
+Gets the CosmosDB Sql Database.
 
 ### [Get-AzCosmosDBSqlDatabaseThroughput](Get-AzCosmosDBSqlDatabaseThroughput.md)
-{{ Fill in the Description }}
+Gets the throughput settings corresponding to a CosmosDB Sql Database.
 
 ### [Get-AzCosmosDBSqlStoredProcedure](Get-AzCosmosDBSqlStoredProcedure.md)
-{{ Fill in the Description }}
+Gets the CosmosDB Sql StoredProcedure.
 
 ### [Get-AzCosmosDBSqlTrigger](Get-AzCosmosDBSqlTrigger.md)
-{{ Fill in the Description }}
+Gets the CosmosDB Sql Trigger.
 
 ### [Get-AzCosmosDBSqlUserDefinedFunction](Get-AzCosmosDBSqlUserDefinedFunction.md)
-{{ Fill in the Description }}
+Gets the CosmosDB Sql User Defined Function.
 
 ### [New-AzCosmosDBSqlCompositeIndex](New-AzCosmosDBSqlCompositeIndex.md)
-{{ Fill in the Description }}
+Creates a new CosmosDB Sql Composite Index object.
 
 ### [New-AzCosmosDBSqlConflictResolutionPolicy](New-AzCosmosDBSqlConflictResolutionPolicy.md)
-{{ Fill in the Description }}
+Creates a new CosmosDB Sql ConflictResolutionPolicy object.
 
 ### [New-AzCosmosDBSqlIndexingPolicy](New-AzCosmosDBSqlIndexingPolicy.md)
-{{ Fill in the Description }}
+Creates a new CosmosDB Sql IndexingPolicy object.
 
 ### [New-AzCosmosDBSqlSpatialSpec](New-AzCosmosDBSqlSpatialSpec.md)
-{{ Fill in the Description }}
+Creates a new CosmosDB Sql SpatialSpec object.
 
 ### [New-AzCosmosDBSqlUniqueKey](New-AzCosmosDBSqlUniqueKey.md)
-{{ Fill in the Description }}
+Creates a new CosmosDB Sql UniqueKey object.
 
 ### [New-AzCosmosDBSqlUniqueKeyPolicy](New-AzCosmosDBSqlUniqueKeyPolicy.md)
-{{ Fill in the Description }}
+Creates a new CosmosDB Sql UniqueKeyPolicy object.
 
 ### [Remove-AzCosmosDBSqlContainer](Remove-AzCosmosDBSqlContainer.md)
-{{ Fill in the Description }}
+Deletes the CosmosDB Sql Container.
 
 ### [Remove-AzCosmosDBSqlDatabase](Remove-AzCosmosDBSqlDatabase.md)
-{{ Fill in the Description }}
+Deletes the CosmosDB Sql Database.
 
 ### [Remove-AzCosmosDBSqlStoredProcedure](Remove-AzCosmosDBSqlStoredProcedure.md)
-{{ Fill in the Description }}
+Deletes the CosmosDB Sql StoredProcedure.
 
 ### [Remove-AzCosmosDBSqlTrigger](Remove-AzCosmosDBSqlTrigger.md)
-{{ Fill in the Description }}
+Deletes the CosmosDB Sql Trigger.
 
 ### [Remove-AzCosmosDBSqlUserDefinedFunction](Remove-AzCosmosDBSqlUserDefinedFunction.md)
-{{ Fill in the Description }}
+Deletes the CosmosDB Sql UserDefinedFunction.
 
 ### [Set-AzCosmosDBSqlContainer](Set-AzCosmosDBSqlContainer.md)
-{{ Fill in the Description }}
+Creates a new or updates an existing CosmosDB Sql Container.
 
 ### [Set-AzCosmosDBSqlDatabase](Set-AzCosmosDBSqlDatabase.md)
-{{ Fill in the Description }}
+Creates a new or updates an existing CosmosDB Sql Database.
 
 ### [Set-AzCosmosDBSqlStoredProcedure](Set-AzCosmosDBSqlStoredProcedure.md)
-{{ Fill in the Description }}
+Creates a new or updates an existing CosmosDB Sql StoredProcedure.
 
 ### [Set-AzCosmosDBSqlTrigger](Set-AzCosmosDBSqlTrigger.md)
-{{ Fill in the Description }}
+Creates a new or updates an existing CosmosDB Sql Trigger.
 
 ### [Set-AzCosmosDBSqlUserDefinedFunction](Set-AzCosmosDBSqlUserDefinedFunction.md)
-{{ Fill in the Description }}
-
+Creates a new or updates an existing CosmosDB Sql UserDefinedFunction.

@@ -1,14 +1,14 @@
 ---
 external help file: Microsoft.Azure.PowerShell.Cmdlets.CosmosDB.dll-Help.xml
 Module Name: Az.CosmosDB
-online version:
+online version: https://docs.microsoft.com/en-us/powershell/module/az.cosmosdb/remove-azcosmosdbsqluserdefinedfunction
 schema: 2.0.0
 ---
 
 # Remove-AzCosmosDBSqlUserDefinedFunction
 
 ## SYNOPSIS
-{{ Fill in the Synopsis }}
+Deletes the CosmosDB Sql UserDefinedFunction.
 
 ## SYNTAX
 
@@ -18,18 +18,17 @@ Remove-AzCosmosDBSqlUserDefinedFunction [-ResourceGroupName <String>] [-AccountN
  [-DefaultProfile <IAzureContextContainer>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
+
 ## DESCRIPTION
-{{ Fill in the Description }}
+The **Remove-AzCosmosDBSqlUserDefinedFunction** cmdlet deletes the CosmosDB Sql UserDefinedFunction corresponding to the given ResourceGroupName, AccountName and DatabaseName.
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> {{ Add example code here }}
+PS C:\> Remove-AzCosmosDBSqlUserDefinedFunction -ResourceGroupName {resourceGroupName} -AccountName {accountName} -DatabaseName {databaseName} -ContainerName {containerName} -Name {userDefinedFunctionName} 
+
 ```
-
-{{ Add example description here }}
-
 ## PARAMETERS
 
 ### -AccountName
