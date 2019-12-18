@@ -86,7 +86,7 @@ CmdletsToExport = 'Get-AzCosmosDBSqlContainer', 'Get-AzCosmosDBSqlContainerThrou
                'Set-AzCosmosDBSqlContainer', 'Set-AzCosmosDBSqlDatabase',
                'New-AzCosmosDBAccount', 'Remove-AzCosmosDBAccount', 'Get-AzCosmosDBAccount',
                'Get-AzCosmosDBAccountKey', 'New-AzCosmosDBAccountKey', 'Update-AzCosmosDBAccount', 
-               'Update-AzCosmosDBAccountRegion', 'Update-AzCosmosDBAccountFailoverPriority',
+               'Update-AzCosmosDBAccountRegion', 'Update-AzCosmosDBAccountFailoverPriority'
  
 # Variables to export from this module
 # VariablesToExport = @()
