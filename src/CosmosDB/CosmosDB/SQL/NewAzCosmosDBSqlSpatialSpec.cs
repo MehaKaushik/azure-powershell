@@ -18,7 +18,7 @@ using Microsoft.Azure.Commands.CosmosDB.Helpers;
 
 namespace Microsoft.Azure.Commands.CosmosDB
 {
-    [Cmdlet(VerbsCommon.New, ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "CosmosDBSqlSpatialSpec"), OutputType(typeof(PSSqlSpatialSpec))]
+    [Cmdlet(VerbsCommon.New, ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "CosmosDBSqlSpatialSpec", SupportsShouldProcess = true), OutputType(typeof(PSSqlSpatialSpec))]
     public class NewAzCosmosDBSqlSpatialSpec : AzureCosmosDBCmdletBase
     {
         [Parameter(Mandatory = false, HelpMessage = Constants.SpatialTypeHelpMessage)]
