@@ -45,7 +45,7 @@ namespace Microsoft.Azure.Commands.CosmosDB
 
         public override void ExecuteCmdlet()
         {
-            if (!ParameterSetName.Equals(NameParameterSet))
+            if (!ParameterSetName.Equals(NameParameterSet, StringComparison.Ordinal))
             {
                 ResourceIdentifier resourceIdentifier = null;
                 if (ParameterSetName.Equals(ResourceIdParameterSet, StringComparison.Ordinal))

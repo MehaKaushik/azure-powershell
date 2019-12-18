@@ -20,6 +20,6 @@
 
 ## Upcoming Release
 
-## Version 1.0.0
+## Version 0.1.0
 * General availability of `Az.CosmosDB` module
 
