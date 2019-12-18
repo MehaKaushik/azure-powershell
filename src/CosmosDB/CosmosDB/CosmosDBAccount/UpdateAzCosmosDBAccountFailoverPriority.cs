@@ -28,20 +28,20 @@ namespace Microsoft.Azure.Commands.CosmosDB
     [Cmdlet("Update", ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "CosmosDBAccountFailoverPriority", DefaultParameterSetName = NameParameterSet, SupportsShouldProcess = true), OutputType(typeof(void))]
     public class UpdateAzCosmosDBAccountFailoverPriority : AzureCosmosDBCmdletBase
     {
-        [Parameter(Mandatory = false, ParameterSetName = NameParameterSet, HelpMessage = Constants.ResourceGroupNameHelpMessage)]
+        [Parameter(Mandatory = true, ParameterSetName = NameParameterSet, HelpMessage = Constants.ResourceGroupNameHelpMessage)]
         [ResourceGroupCompleter]
         public string ResourceGroupName { get; set; }
 
-        [Parameter(Mandatory = false, ParameterSetName = NameParameterSet, HelpMessage = Constants.AccountNameHelpMessage)]
+        [Parameter(Mandatory = true, ParameterSetName = NameParameterSet, HelpMessage = Constants.AccountNameHelpMessage)]
         public string Name { get; set; }
 
-        [Parameter(Mandatory = false, ParameterSetName = ResourceIdParameterSet, HelpMessage = Constants.ResourceIdHelpMessage)]
+        [Parameter(Mandatory = true, ParameterSetName = ResourceIdParameterSet, HelpMessage = Constants.ResourceIdHelpMessage)]
         public string ResourceId { get; set; }
 
         [Parameter(Mandatory = true, HelpMessage = Constants.AccountFailoverPolicyHelpMessage)]
         public string[] FailoverPolicy { get; set; }
 
-        [Parameter(Mandatory = false, ParameterSetName = ObjectParameterSet, HelpMessage = Constants.AccountObjectHelpMessage)]
+        [Parameter(Mandatory = true, ParameterSetName = ObjectParameterSet, HelpMessage = Constants.AccountObjectHelpMessage)]
         public PSDatabaseAccount InputObject { get; set; }
 
         [Parameter(Mandatory = false, HelpMessage = Constants.AsJobHelpMessage)]
@@ -52,17 +52,18 @@ namespace Microsoft.Azure.Commands.CosmosDB
 
         public override void ExecuteCmdlet()
         {
-            if (!ParameterSetName.Equals(NameParameterSet))
+            if (!ParameterSetName.Equals(NameParameterSet, StringComparison.Ordinal))
             {
                 ResourceIdentifier resourceIdentifier = null;
-                if (ParameterSetName.Equals(ResourceIdParameterSet))
+                if (ParameterSetName.Equals(ResourceIdParameterSet, StringComparison.Ordinal))
                 {
                     resourceIdentifier = new ResourceIdentifier(ResourceId);
                 }
-                else if (ParameterSetName.Equals(ObjectParameterSet))
+                else if (ParameterSetName.Equals(ObjectParameterSet, StringComparison.Ordinal))
                 {
                     resourceIdentifier = new ResourceIdentifier(InputObject.Id);
                 }
+
                 ResourceGroupName = resourceIdentifier.ResourceGroupName;
                 Name = resourceIdentifier.ResourceName;
             }
@@ -76,7 +77,7 @@ namespace Microsoft.Azure.Commands.CosmosDB
                      
             try
             {
-                CosmosDBManagementClient.DatabaseAccounts.FailoverPriorityChangeAsync(ResourceGroupName, Name, new FailoverPolicies(failoverPolicies));
+                CosmosDBManagementClient.DatabaseAccounts.FailoverPriorityChangeAsync(ResourceGroupName, Name, new FailoverPolicies(failoverPolicies)).GetAwaiter().GetResult();
                 if (PassThru)
                     WriteObject(bool.TrueString);
             }

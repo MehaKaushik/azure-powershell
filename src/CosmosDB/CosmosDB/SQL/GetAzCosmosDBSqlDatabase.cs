@@ -27,17 +27,17 @@ namespace Microsoft.Azure.Commands.CosmosDB
     [Cmdlet(VerbsCommon.Get, ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "CosmosDBSqlDatabase", DefaultParameterSetName = NameParameterSet), OutputType(typeof(PSSqlDatabaseGetResults), typeof(PSThroughputSettingsGetResults))]
     public class GetAzCosmosDBSqlDatabase : AzureCosmosDBCmdletBase
     {
-        [Parameter(Mandatory = false, ParameterSetName = NameParameterSet, HelpMessage = Constants.ResourceGroupNameHelpMessage)]
+        [Parameter(Mandatory = true, ParameterSetName = NameParameterSet, HelpMessage = Constants.ResourceGroupNameHelpMessage)]
         [ResourceGroupCompleter]
         public string ResourceGroupName { get; set; }
 
-        [Parameter(Mandatory = false, ParameterSetName = NameParameterSet, HelpMessage = Constants.AccountNameHelpMessage)]
+        [Parameter(Mandatory = true, ParameterSetName = NameParameterSet, HelpMessage = Constants.AccountNameHelpMessage)]
         public string AccountName { get; set; }
 
         [Parameter(Mandatory = false, ParameterSetName = NameParameterSet, HelpMessage = Constants.DatabaseNameHelpMessage)]
         public string Name { get; set; }
 
-        [Parameter(Mandatory = false, ParameterSetName = ObjectParameterSet, HelpMessage = Constants.AccountObjectHelpMessage)]
+        [Parameter(Mandatory = true, ParameterSetName = ObjectParameterSet, HelpMessage = Constants.AccountObjectHelpMessage)]
         public PSDatabaseAccount InputObject { get; set; }
 
         [Parameter(Mandatory = false, HelpMessage = Constants.SqlDatabaseDetailedParamHelpMessage)]
@@ -45,7 +45,7 @@ namespace Microsoft.Azure.Commands.CosmosDB
 
         public override void ExecuteCmdlet()
         {
-            if(ParameterSetName.Equals(ObjectParameterSet))
+            if(ParameterSetName.Equals(ObjectParameterSet, StringComparison.Ordinal))
             {
                 ResourceIdentifier resourceIdentifier = new ResourceIdentifier(InputObject.Id);
                 AccountName = resourceIdentifier.ResourceName;

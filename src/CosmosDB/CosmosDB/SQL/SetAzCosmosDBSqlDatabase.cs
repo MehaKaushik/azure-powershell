@@ -30,20 +30,20 @@ namespace Microsoft.Azure.Commands.CosmosDB
     [Cmdlet(VerbsCommon.Set, ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "CosmosDBSqlDatabase", DefaultParameterSetName = NameParameterSet, SupportsShouldProcess = true), OutputType(typeof(PSSqlDatabaseGetResults))]
     public class SetAzCosmosDBSqlDatabase : AzureCosmosDBCmdletBase
     {
-        [Parameter(Mandatory = false, ParameterSetName = NameParameterSet, HelpMessage = Constants.ResourceGroupNameHelpMessage)]
+        [Parameter(Mandatory = true, ParameterSetName = NameParameterSet, HelpMessage = Constants.ResourceGroupNameHelpMessage)]
         [ResourceGroupCompleter]
         public string ResourceGroupName { get; set; }
 
-        [Parameter(Mandatory = false, ParameterSetName = NameParameterSet, HelpMessage = Constants.AccountNameHelpMessage)]
+        [Parameter(Mandatory = true, ParameterSetName = NameParameterSet, HelpMessage = Constants.AccountNameHelpMessage)]
         public string AccountName { get; set; }
 
-        [Parameter(Mandatory = false, HelpMessage = Constants.DatabaseNameHelpMessage)]
+        [Parameter(Mandatory = true, HelpMessage = Constants.DatabaseNameHelpMessage)]
         public string Name { get; set; }
 
         [Parameter(Mandatory = false, HelpMessage = Constants.SqlDatabaseThroughputHelpMessage)]
         public int? Throughput { get; set; }
 
-        [Parameter(Mandatory = false, ParameterSetName = ParentObjectParameterSet, HelpMessage = Constants.AccountObjectHelpMessage)]
+        [Parameter(Mandatory = true, ParameterSetName = ParentObjectParameterSet, HelpMessage = Constants.AccountObjectHelpMessage)]
         public PSDatabaseAccount InputObject { get; set; }
 
         [Parameter(Mandatory = false, HelpMessage = Constants.AsJobHelpMessage)]
@@ -51,7 +51,7 @@ namespace Microsoft.Azure.Commands.CosmosDB
 
         public override void ExecuteCmdlet()
         {
-            if(ParameterSetName.Equals(ParentObjectParameterSet))
+            if(ParameterSetName.Equals(ParentObjectParameterSet, StringComparison.Ordinal))
             {
                 ResourceIdentifier resourceIdentifier = new ResourceIdentifier(InputObject.Id);
                 ResourceGroupName = resourceIdentifier.ResourceGroupName;

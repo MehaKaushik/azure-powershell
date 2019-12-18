@@ -15,20 +15,20 @@ namespace Microsoft.Azure.Commands.CosmosDB
     [Cmdlet(VerbsCommon.Remove, ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "CosmosDBSqlContainer", DefaultParameterSetName = NameParameterSet, SupportsShouldProcess = true), OutputType(typeof(void), typeof(bool))]
     public class RemoveAzCosmosDBSqlContainer : AzureCosmosDBCmdletBase
     {
-        [Parameter(Mandatory = false, ParameterSetName = NameParameterSet, HelpMessage = Constants.ResourceGroupNameHelpMessage)]
+        [Parameter(Mandatory = true, ParameterSetName = NameParameterSet, HelpMessage = Constants.ResourceGroupNameHelpMessage)]
         [ResourceGroupCompleter]
         public string ResourceGroupName { get; set; }
 
-        [Parameter(Mandatory = false, ParameterSetName = NameParameterSet, HelpMessage = Constants.AccountNameHelpMessage)]
+        [Parameter(Mandatory = true, ParameterSetName = NameParameterSet, HelpMessage = Constants.AccountNameHelpMessage)]
         public string AccountName { get; set; }
 
-        [Parameter(Mandatory = false, ParameterSetName = NameParameterSet, HelpMessage = Constants.DatabaseNameHelpMessage)]
+        [Parameter(Mandatory = true, ParameterSetName = NameParameterSet, HelpMessage = Constants.DatabaseNameHelpMessage)]
         public string DatabaseName { get; set; }
 
-        [Parameter(Mandatory = false, HelpMessage = Constants.ContainerNameHelpMessage)]
+        [Parameter(Mandatory = true, HelpMessage = Constants.ContainerNameHelpMessage)]
         public string Name { get; set; }
 
-        [Parameter(Mandatory = false, ParameterSetName = ObjectParameterSet, HelpMessage = Constants.SqlContainerObjectHelpMessage)]
+        [Parameter(Mandatory = true, ParameterSetName = ObjectParameterSet, HelpMessage = Constants.SqlContainerObjectHelpMessage)]
         public PSSqlContainerGetResults InputObject { get; set; }
 
         [Parameter(Mandatory = false, HelpMessage = Constants.AsJobHelpMessage)]
@@ -39,7 +39,7 @@ namespace Microsoft.Azure.Commands.CosmosDB
 
         public override void ExecuteCmdlet()
         {
-            if(ParameterSetName.Equals(ObjectParameterSet))
+            if(ParameterSetName.Equals(ObjectParameterSet, StringComparison.Ordinal))
             {
                 ResourceIdentifier resourceIdentifier = new ResourceIdentifier(InputObject.SqlContainerGetResultsId);
                 ResourceGroupName = resourceIdentifier.ResourceGroupName;

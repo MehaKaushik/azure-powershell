@@ -24,17 +24,17 @@ namespace Microsoft.Azure.Commands.CosmosDB
     [Cmdlet(VerbsCommon.Remove, ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "CosmosDBAccount", DefaultParameterSetName = NameParameterSet, SupportsShouldProcess = true), OutputType(typeof(void))]
     public class RemoveAzCosmosDBAccount : AzureCosmosDBCmdletBase
     {
-        [Parameter(Mandatory = false, ParameterSetName = NameParameterSet, HelpMessage = Constants.ResourceGroupNameHelpMessage)]
+        [Parameter(Mandatory = true, ParameterSetName = NameParameterSet, HelpMessage = Constants.ResourceGroupNameHelpMessage)]
         [ResourceGroupCompleter]
         public string ResourceGroupName { get; set; }
 
-        [Parameter(Mandatory = false, ParameterSetName = NameParameterSet, HelpMessage = Constants.AccountNameHelpMessage)]
+        [Parameter(Mandatory = true, ParameterSetName = NameParameterSet, HelpMessage = Constants.AccountNameHelpMessage)]
         public string Name { get; set; }
 
-        [Parameter(Mandatory = false, ParameterSetName = ResourceIdParameterSet, HelpMessage = Constants.ResourceIdHelpMessage)]
+        [Parameter(Mandatory = true, ParameterSetName = ResourceIdParameterSet, HelpMessage = Constants.ResourceIdHelpMessage)]
         public string ResourceId { get; set; }
 
-        [Parameter(Mandatory = false, ValueFromPipelineByPropertyName = true, ParameterSetName = ObjectParameterSet, HelpMessage = Constants.AccountObjectHelpMessage)]
+        [Parameter(Mandatory = true, ValueFromPipelineByPropertyName = true, ParameterSetName = ObjectParameterSet, HelpMessage = Constants.AccountObjectHelpMessage)]
         public PSDatabaseAccount InputObject { get; set; }
 
         [Parameter(Mandatory = false, HelpMessage = Constants.AsJobHelpMessage)]
@@ -48,21 +48,22 @@ namespace Microsoft.Azure.Commands.CosmosDB
             if (!ParameterSetName.Equals(NameParameterSet))
             {
                 ResourceIdentifier resourceIdentifier = null;
-                if (ParameterSetName.Equals(ResourceIdParameterSet))
+                if (ParameterSetName.Equals(ResourceIdParameterSet, StringComparison.Ordinal))
                 {
                     resourceIdentifier = new ResourceIdentifier(ResourceId);
                 }
-                else if (ParameterSetName.Equals(ObjectParameterSet))
+                else if (ParameterSetName.Equals(ObjectParameterSet, StringComparison.Ordinal))
                 {
                     resourceIdentifier = new ResourceIdentifier(InputObject.Id);
                 }
+
                 ResourceGroupName = resourceIdentifier.ResourceGroupName;
                 Name = resourceIdentifier.ResourceName;
             }
 
             try
             {
-                CosmosDBManagementClient.DatabaseAccounts.DeleteWithHttpMessagesAsync(ResourceGroupName, Name);
+                CosmosDBManagementClient.DatabaseAccounts.DeleteWithHttpMessagesAsync(ResourceGroupName, Name).GetAwaiter().GetResult();
                 if (PassThru)
                     WriteObject(bool.TrueString);
             }

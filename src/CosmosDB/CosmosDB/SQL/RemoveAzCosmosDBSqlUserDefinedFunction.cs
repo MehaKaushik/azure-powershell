@@ -15,20 +15,20 @@ namespace Microsoft.Azure.Commands.CosmosDB
     [Cmdlet(VerbsCommon.Remove, ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "CosmosDBSqlUserDefinedFunction", SupportsShouldProcess = true), OutputType(typeof(void), typeof(bool))]
     public class RemoveAzCosmosDBSqlUserDefinedFunction : AzureCosmosDBCmdletBase
     {
-        [Parameter(Mandatory = false, ParameterSetName = NameParameterSet, HelpMessage = Constants.ResourceGroupNameHelpMessage)]
+        [Parameter(Mandatory = true, ParameterSetName = NameParameterSet, HelpMessage = Constants.ResourceGroupNameHelpMessage)]
         [ResourceGroupCompleter]
         public string ResourceGroupName { get; set; }
 
-        [Parameter(Mandatory = false, ParameterSetName = NameParameterSet, HelpMessage = Constants.AccountNameHelpMessage)]
+        [Parameter(Mandatory = true, ParameterSetName = NameParameterSet, HelpMessage = Constants.AccountNameHelpMessage)]
         public string AccountName { get; set; }
 
-        [Parameter(Mandatory = false, ParameterSetName = NameParameterSet, HelpMessage = Constants.DatabaseNameHelpMessage)]
+        [Parameter(Mandatory = true, ParameterSetName = NameParameterSet, HelpMessage = Constants.DatabaseNameHelpMessage)]
         public string DatabaseName { get; set; }
 
-        [Parameter(Mandatory = false, HelpMessage = Constants.ContainerNameHelpMessage)]
+        [Parameter(Mandatory = true, HelpMessage = Constants.ContainerNameHelpMessage)]
         public string ContainerName { get; set; }
 
-        [Parameter(Mandatory = false, HelpMessage = Constants.UserDefinedFunctionNameHelpMessage)]
+        [Parameter(Mandatory = true, HelpMessage = Constants.UserDefinedFunctionNameHelpMessage)]
         public string Name { get; set; }
 
         [Parameter(Mandatory = false, HelpMessage = Constants.AsJobHelpMessage)]
