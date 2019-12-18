@@ -19,7 +19,7 @@ using Microsoft.Azure.Commands.ResourceManager.Common.ArgumentCompleters;
 
 namespace Microsoft.Azure.Commands.CosmosDB
 {
-    [Cmdlet(VerbsCommon.New, ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "CosmosDBSqlCompositeIndex"), OutputType(typeof(PSSqlCompositeIndex))]
+    [Cmdlet(VerbsCommon.New, ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "CosmosDBSqlCompositeIndex", SupportsShouldProcess = true), OutputType(typeof(PSSqlCompositeIndex))]
     public class NewAzCosmosDBSqlCompositeIndex : AzureCosmosDBCmdletBase
     {
         [Parameter(Mandatory = false, HelpMessage = Constants.SortOrderHelpMessage)]

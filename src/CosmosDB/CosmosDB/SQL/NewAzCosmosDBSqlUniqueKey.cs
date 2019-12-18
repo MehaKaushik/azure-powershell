@@ -18,7 +18,7 @@ using Microsoft.Azure.Commands.CosmosDB.Helpers;
 
 namespace Microsoft.Azure.Commands.CosmosDB
 {
-    [Cmdlet(VerbsCommon.New, ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "CosmosDBSqlUniqueKey"), OutputType(typeof(PSSqlUniqueKey))]
+    [Cmdlet(VerbsCommon.New, ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "CosmosDBSqlUniqueKey", SupportsShouldProcess = true), OutputType(typeof(PSSqlUniqueKey))]
     public class NewAzCosmosDBSqlUniqueKey : AzureCosmosDBCmdletBase
     {
 
