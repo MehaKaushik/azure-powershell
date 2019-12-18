@@ -79,3 +79,27 @@ Creates a new or updates an existing CosmosDB Sql Trigger.
 
 ### [Set-AzCosmosDBSqlUserDefinedFunction](Set-AzCosmosDBSqlUserDefinedFunction.md)
 Creates a new or updates an existing CosmosDB Sql UserDefinedFunction.
+
+### [Get-AzCosmosDBAccount](Get-AzCosmosDBAccount.md)
+Get CosmosDB Account.
+
+### [Get-AzCosmosDBAccountKey](Get-AzCosmosDBAccountKey.md)
+Get Keys{"ConnectionKeys", "PrimaryReadOnly" or "Keys"} for the given CosmosDB Account. 
+
+### [New-AzCosmosDBAccount](New-AzCosmosDBAccount.md)
+Create a new CosmosDB Account.
+
+### [New-AzCosmosDBAccountKey](New-AzCosmosDBAccountKey.md)
+Regenerate a given CosmosDB Account Key.
+
+### [Remove-AzCosmosDBAccount](Remove-AzCosmosDBAccount.md)
+Remove a CosmosDB Account
+
+### [Update-AzCosmosDBAccount](Update-AzCosmosDBAccount.md)
+Update a CosmosDB account attributes.
+
+### [Update-AzCosmosDBAccountFailoverPriority](Update-AzCosmosDBAccountFailoverPriority.md)
+Update FailoverPolicies of a CosmosDB Account.
+
+### [Update-AzCosmosDBAccountRegion](Update-AzCosmosDBAccountRegion.md)
+Update Regions of a CosmosDB Account.
