@@ -29,17 +29,17 @@ namespace Microsoft.Azure.Commands.CosmosDB
     [Cmdlet("Remove", ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "CosmosDBSqlDatabase" , SupportsShouldProcess = true), OutputType(typeof(void), typeof(bool))]
     public class RemoveAzCosmosDBSqlDatabase : AzureCosmosDBCmdletBase
     {
-        [Parameter(Mandatory = false, ParameterSetName = NameParameterSet, HelpMessage = Constants.AccountNameHelpMessage)]
+        [Parameter(Mandatory = true, ParameterSetName = NameParameterSet, HelpMessage = Constants.AccountNameHelpMessage)]
         public string AccountName { get; set; }
 
-        [Parameter(Mandatory = false, ParameterSetName = NameParameterSet, HelpMessage = Constants.DatabaseNameHelpMessage)]
+        [Parameter(Mandatory = true, ParameterSetName = NameParameterSet, HelpMessage = Constants.DatabaseNameHelpMessage)]
         public string Name { get; set; }
 
-        [Parameter(Mandatory = false, ParameterSetName = NameParameterSet, HelpMessage = Constants.ResourceGroupNameHelpMessage)]
+        [Parameter(Mandatory = true, ParameterSetName = NameParameterSet, HelpMessage = Constants.ResourceGroupNameHelpMessage)]
         [ResourceGroupCompleter]
         public string ResourceGroupName { get; set; }
 
-        [Parameter(Mandatory = false, HelpMessage = Constants.SqlDatabaseObjectHelpMessage)]
+        [Parameter(Mandatory = true, HelpMessage = Constants.SqlDatabaseObjectHelpMessage)]
         public PSSqlDatabaseGetResults InputObject { get; set; }
 
         [Parameter(Mandatory = false, HelpMessage = Constants.PassThruHelpMessage)]
@@ -50,7 +50,7 @@ namespace Microsoft.Azure.Commands.CosmosDB
 
         public override void ExecuteCmdlet()
         {
-            if (ParameterSetName.Equals(ObjectParameterSet))
+            if (ParameterSetName.Equals(ObjectParameterSet, StringComparison.Ordinal))
             {
                 ResourceIdentifier resourceIdentifier = new ResourceIdentifier(InputObject.Id);
                 ResourceGroupName = resourceIdentifier.ResourceGroupName;

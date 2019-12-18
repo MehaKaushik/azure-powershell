@@ -22,23 +22,24 @@ using System.Linq;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using Microsoft.Azure.Management.CosmosDB.Models;
+using System;
 
 namespace Microsoft.Azure.Commands.CosmosDB
 {
     [Cmdlet("Update", ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "CosmosDBAccount", DefaultParameterSetName = NameParameterSet, SupportsShouldProcess = true), OutputType(typeof(PSDatabaseAccount))]
     public class UpdateAzCosmosDBAccount : AzureCosmosDBCmdletBase
     {
-        [Parameter(Mandatory = false, ParameterSetName = NameParameterSet, HelpMessage = Constants.ResourceGroupNameHelpMessage)]
+        [Parameter(Mandatory = true, ParameterSetName = NameParameterSet, HelpMessage = Constants.ResourceGroupNameHelpMessage)]
         [ResourceGroupCompleter]
         public string ResourceGroupName { get; set; }
 
-        [Parameter(Mandatory = false, ParameterSetName = NameParameterSet, HelpMessage = Constants.AccountNameHelpMessage)]
+        [Parameter(Mandatory = true, ParameterSetName = NameParameterSet, HelpMessage = Constants.AccountNameHelpMessage)]
         public string Name { get; set; }
 
-        [Parameter(Mandatory = false, ParameterSetName = ResourceIdParameterSet, HelpMessage = Constants.ResourceIdHelpMessage)]
+        [Parameter(Mandatory = true, ParameterSetName = ResourceIdParameterSet, HelpMessage = Constants.ResourceIdHelpMessage)]
         public string ResourceId { get; set; }
 
-        [Parameter(Mandatory = false, ParameterSetName = ObjectParameterSet, HelpMessage = Constants.AccountObjectHelpMessage)]
+        [Parameter(Mandatory = true, ParameterSetName = ObjectParameterSet, HelpMessage = Constants.AccountObjectHelpMessage)]
         public PSDatabaseAccount InputObject { get; set; }
 
         [Parameter(Mandatory = false, HelpMessage = Constants.DefaultConsistencyLevelHelpMessage)]
@@ -74,14 +75,14 @@ namespace Microsoft.Azure.Commands.CosmosDB
 
         public override void ExecuteCmdlet()
         {
-            if (!ParameterSetName.Equals(NameParameterSet))
+            if (!ParameterSetName.Equals(NameParameterSet, StringComparison.Ordinal))
             {
                 ResourceIdentifier resourceIdentifier = null;
-                if (ParameterSetName.Equals(ResourceIdParameterSet))
+                if (ParameterSetName.Equals(ResourceIdParameterSet, StringComparison.Ordinal))
                 {
                     resourceIdentifier = new ResourceIdentifier(ResourceId);
                 }
-                else if (ParameterSetName.Equals(ObjectParameterSet))
+                else if (ParameterSetName.Equals(ObjectParameterSet, StringComparison.Ordinal))
                 {
                     resourceIdentifier = new ResourceIdentifier(InputObject.Id);
                 }
@@ -96,7 +97,7 @@ namespace Microsoft.Azure.Commands.CosmosDB
             databaseAccountUpdateParameters.IsVirtualNetworkFilterEnabled = EnableVirtualNetwork;
             databaseAccountUpdateParameters.EnableAutomaticFailover = EnableAutomaticFailover;
 
-            if (DefaultConsistencyLevel != null)
+            if (!string.IsNullOrEmpty(DefaultConsistencyLevel))
             {
                 ConsistencyPolicy consistencyPolicy = new ConsistencyPolicy();
                 {
@@ -105,33 +106,25 @@ namespace Microsoft.Azure.Commands.CosmosDB
                         case "Strong":
                             consistencyPolicy.DefaultConsistencyLevel = Management.CosmosDB.Models.DefaultConsistencyLevel.Strong;
                             break;
-
                         case "Session":
                             consistencyPolicy.DefaultConsistencyLevel = Management.CosmosDB.Models.DefaultConsistencyLevel.Session;
                             break;
-
                         case "Eventual":
                             consistencyPolicy.DefaultConsistencyLevel = Management.CosmosDB.Models.DefaultConsistencyLevel.Eventual;
                             break;
-
                         case "ConsistentPrefix":
-                            {
-                                consistencyPolicy.DefaultConsistencyLevel = Management.CosmosDB.Models.DefaultConsistencyLevel.ConsistentPrefix;
-                                break;
-                            }
-
+                            consistencyPolicy.DefaultConsistencyLevel = Management.CosmosDB.Models.DefaultConsistencyLevel.ConsistentPrefix;
+                            break;
                         case "BoundedStaleness":
-                            {
-                                consistencyPolicy.DefaultConsistencyLevel = Management.CosmosDB.Models.DefaultConsistencyLevel.BoundedStaleness;
-                                consistencyPolicy.MaxIntervalInSeconds = MaxStalenessIntervalInSeconds;
-                                consistencyPolicy.MaxStalenessPrefix = MaxStalenessPrefix;
-                                break;
-                            }
-
+                            consistencyPolicy.DefaultConsistencyLevel = Management.CosmosDB.Models.DefaultConsistencyLevel.BoundedStaleness;
+                            consistencyPolicy.MaxIntervalInSeconds = MaxStalenessIntervalInSeconds;
+                            consistencyPolicy.MaxStalenessPrefix = MaxStalenessPrefix;
+                            break;
                         default:
                             consistencyPolicy.DefaultConsistencyLevel = Management.CosmosDB.Models.DefaultConsistencyLevel.Session;
                             break;
                     }
+
                     databaseAccountUpdateParameters.ConsistencyPolicy = consistencyPolicy;
                 }
             }
@@ -139,14 +132,16 @@ namespace Microsoft.Azure.Commands.CosmosDB
             if (Tag != null)
             {
                 Dictionary<string, string> tags = new Dictionary<string, string>();
+                
                 foreach (string key in Tag.Keys)
                 {
                     tags.Add(key, Tag[key].ToString());
                 }
+
                 databaseAccountUpdateParameters.Tags = tags;
             }
 
-            if (VirtualNetworkRule != null)
+            if (VirtualNetworkRule != null && VirtualNetworkRule.Length > 0)
             {
                 Collection<VirtualNetworkRule> virtualNetworkRule = new Collection<VirtualNetworkRule>();
 
@@ -159,7 +154,7 @@ namespace Microsoft.Azure.Commands.CosmosDB
                 databaseAccountUpdateParameters.VirtualNetworkRules = virtualNetworkRule;
             }
 
-            if (IpRangeFilter != null)
+            if (IpRangeFilter != null && IpRangeFilter.Length > 0)
             {
                 string IpRangeFilterAsString = null;
 
@@ -172,6 +167,7 @@ namespace Microsoft.Azure.Commands.CosmosDB
                     else
                     IpRangeFilterAsString = string.Concat(IpRangeFilterAsString, ",", IpRangeFilter[i]);
                 }
+
                 databaseAccountUpdateParameters.IpRangeFilter = IpRangeFilterAsString;
             }
 

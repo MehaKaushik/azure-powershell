@@ -12,6 +12,7 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Management.Automation;
@@ -26,25 +27,25 @@ namespace Microsoft.Azure.Commands.CosmosDB
     [Cmdlet(VerbsCommon.Get, ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "CosmosDBAccountKey", DefaultParameterSetName = NameParameterSet), OutputType(typeof(Hashtable))]
     public class GetAzCosmosDBAccountKey : AzureCosmosDBCmdletBase
     {
-        [Parameter(Mandatory = false, ParameterSetName = NameParameterSet, HelpMessage = Constants.ResourceGroupNameHelpMessage)]
+        [Parameter(Mandatory = true, ParameterSetName = NameParameterSet, HelpMessage = Constants.ResourceGroupNameHelpMessage)]
         [ResourceGroupCompleter]
         public string ResourceGroupName { get; set; }
 
-        [Parameter(Mandatory = false, ParameterSetName = NameParameterSet, HelpMessage = Constants.AccountNameHelpMessage)]
+        [Parameter(Mandatory = true, ParameterSetName = NameParameterSet, HelpMessage = Constants.AccountNameHelpMessage)]
         public string Name { get; set; }
 
         [Parameter(Mandatory = false, HelpMessage = Constants.AccountKeyTypeHelpMessage)]
         public string Type { get; set; }
 
-        [Parameter(Mandatory = false, ParameterSetName = ResourceIdParameterSet, HelpMessage = Constants.ResourceIdHelpMessage)]
+        [Parameter(Mandatory = true, ParameterSetName = ResourceIdParameterSet, HelpMessage = Constants.ResourceIdHelpMessage)]
         public string ResourceId { get; set; }
 
-        [Parameter(Mandatory = false, ValueFromPipelineByPropertyName = true, ParameterSetName = ObjectParameterSet, HelpMessage = Constants.AccountObjectHelpMessage)]
+        [Parameter(Mandatory = true, ValueFromPipelineByPropertyName = true, ParameterSetName = ObjectParameterSet, HelpMessage = Constants.AccountObjectHelpMessage)]
         public PSDatabaseAccount InputObject { get; set; }
 
         public override void ExecuteCmdlet()
         {
-            if (!ParameterSetName.Equals(NameParameterSet))
+            if (!ParameterSetName.Equals(NameParameterSet, StringComparison.Ordinal))
             {
                 ResourceIdentifier resourceIdentifier = null;
                 if (ParameterSetName.Equals(ResourceIdParameterSet))
@@ -59,15 +60,15 @@ namespace Microsoft.Azure.Commands.CosmosDB
                 Name = resourceIdentifier.ResourceName;
             }
 
-            if (Type == null)
+            if (string.IsNullOrEmpty(Type))
                 Type = "Keys";
 
-            if (Type.Equals("ConnectionStrings"))
+            if (Type.Equals("ConnectionStrings", StringComparison.OrdinalIgnoreCase))
             {
                 DatabaseAccountListConnectionStringsResult response = CosmosDBManagementClient.DatabaseAccounts.ListConnectionStringsWithHttpMessagesAsync(ResourceGroupName, Name).GetAwaiter().GetResult().Body;
                 WriteObject(new PSDatabaseAccountListKeys(response).Keys);
             }
-            else if (Type.Equals("ReadOnlyKeys"))
+            else if (Type.Equals("ReadOnlyKeys", StringComparison.OrdinalIgnoreCase))
             {
                 DatabaseAccountListReadOnlyKeysResult response = CosmosDBManagementClient.DatabaseAccounts.ListReadOnlyKeysWithHttpMessagesAsync(ResourceGroupName, Name).GetAwaiter().GetResult().Body;
                 WriteObject(new PSDatabaseAccountListKeys(response).Keys);

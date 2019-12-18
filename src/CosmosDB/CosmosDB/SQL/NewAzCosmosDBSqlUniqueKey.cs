@@ -21,7 +21,6 @@ namespace Microsoft.Azure.Commands.CosmosDB
     [Cmdlet(VerbsCommon.New, ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "CosmosDBSqlUniqueKey", SupportsShouldProcess = true), OutputType(typeof(PSSqlUniqueKey))]
     public class NewAzCosmosDBSqlUniqueKey : AzureCosmosDBCmdletBase
     {
-
         [Parameter(Mandatory = true, HelpMessage = Constants.UniqueKeyPathHelpMessage)]
         public string[] Path { get; set; }
 

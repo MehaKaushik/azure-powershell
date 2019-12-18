@@ -12,6 +12,7 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -27,49 +28,49 @@ namespace Microsoft.Azure.Commands.CosmosDB
     [Cmdlet(VerbsCommon.New, ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "CosmosDBAccount", DefaultParameterSetName = NameParameterSet, SupportsShouldProcess = true), OutputType(typeof(PSDatabaseAccount))]
     public class NewAzCosmosDBAccount : AzureCosmosDBCmdletBase
     {
-        [Parameter(Mandatory = false, ParameterSetName = NameParameterSet, HelpMessage = Constants.ResourceGroupNameHelpMessage)]
+        [Parameter(Mandatory = true, ParameterSetName = NameParameterSet, HelpMessage = Constants.ResourceGroupNameHelpMessage)]
         [ResourceGroupCompleter]
         public string ResourceGroupName { get; set; }
 
-        [Parameter(Mandatory = false, ParameterSetName = NameParameterSet, HelpMessage = Constants.AccountNameHelpMessage)]
+        [Parameter(Mandatory = true, ParameterSetName = NameParameterSet, HelpMessage = Constants.AccountNameHelpMessage)]
         public string Name { get; set; }
 
-        [Parameter(Mandatory = false, ParameterSetName = NameParameterSet, HelpMessage = Constants.DefaultConsistencyLevelHelpMessage)]
+        [Parameter(Mandatory = false, HelpMessage = Constants.DefaultConsistencyLevelHelpMessage)]
         [PSArgumentCompleter("BoundedStaleness", "ConsistentPrefix", "Eventual", "Session", "Strong")]
         public string DefaultConsistencyLevel { get; set; }
 
-        [Parameter(Mandatory = false, ParameterSetName = NameParameterSet, HelpMessage = Constants.EnableAutomaticFailoverHelpMessage)]
+        [Parameter(Mandatory = false, HelpMessage = Constants.EnableAutomaticFailoverHelpMessage)]
         public SwitchParameter EnableAutomaticFailover { get; set; }
 
-        [Parameter(Mandatory = false, ParameterSetName = NameParameterSet, HelpMessage = Constants.EnableMultipleWriteLocationsHelpMessage)]
+        [Parameter(Mandatory = false, HelpMessage = Constants.EnableMultipleWriteLocationsHelpMessage)]
         public SwitchParameter EnableMultipleWriteLocations { get; set; }
 
         [Parameter(Mandatory = false, ParameterSetName = NameParameterSet, HelpMessage = Constants.EnableVirtualNetworkHelpMessage)]
         public SwitchParameter EnableVirtualNetwork { get; set; }
 
-        [Parameter(Mandatory = false, ParameterSetName = NameParameterSet, HelpMessage = Constants.IpRangeFilterHelpMessage)]
+        [Parameter(Mandatory = false, HelpMessage = Constants.IpRangeFilterHelpMessage)]
         public string[] IpRangeFilter { get; set; }
 
-        [Parameter(Mandatory = true, ParameterSetName = NameParameterSet, HelpMessage = Constants.LocationHelpMessage)]
+        [Parameter(Mandatory = true, HelpMessage = Constants.LocationHelpMessage)]
         public string[] Location { get; set; }
 
-        [Parameter(Mandatory = false, ParameterSetName = NameParameterSet, HelpMessage = Constants.MaxStalenessIntervalInSecondsHelpMessage)]
+        [Parameter(Mandatory = false, HelpMessage = Constants.MaxStalenessIntervalInSecondsHelpMessage)]
         public int? MaxStalenessIntervalInSeconds { get; set; }
 
-        [Parameter(Mandatory = false, ParameterSetName = NameParameterSet, HelpMessage = Constants.MaxStalenessPrefixHelpMessage)]
+        [Parameter(Mandatory = false, HelpMessage = Constants.MaxStalenessPrefixHelpMessage)]
         public int? MaxStalenessPrefix { get; set; }
 
-        [Parameter(Mandatory = false, ParameterSetName = NameParameterSet, HelpMessage = Constants.TagHelpMessage)]
+        [Parameter(Mandatory = false, HelpMessage = Constants.TagHelpMessage)]
         public Hashtable Tag { get; set; }
 
-        [Parameter(Mandatory = false, ParameterSetName = NameParameterSet, HelpMessage = Constants.VirtualNetworkRuleHelpMessage)]
+        [Parameter(Mandatory = false, HelpMessage = Constants.VirtualNetworkRuleHelpMessage)]
         public string[] VirtualNetworkRule { get; set; }
 
-        [Parameter(Mandatory = false, ParameterSetName = NameParameterSet, HelpMessage = Constants.ApiKindHelpMessage)]
+        [Parameter(Mandatory = false, HelpMessage = Constants.ApiKindHelpMessage)]
         [PSArgumentCompleter("GlobalDocumentDB", "MongoDB", "Others")]
         public string ApiKind { get; set; }
 
-        [Parameter(Mandatory = false, ParameterSetName = NameParameterSet, HelpMessage = Constants.AsJobHelpMessage)]
+        [Parameter(Mandatory = false, HelpMessage = Constants.AsJobHelpMessage)]
         public SwitchParameter AsJob { get; set; }
 
         public override void ExecuteCmdlet()
@@ -106,9 +107,9 @@ namespace Microsoft.Azure.Commands.CosmosDB
                 }
             }
 
-            if(ApiKind != null)
+            if(!string.IsNullOrEmpty(ApiKind))
             {
-                if (!ApiKind.Equals("GlobalDocumentDB") && !ApiKind.Equals("MongoDB"))
+                if (!ApiKind.Equals("GlobalDocumentDB", StringComparison.OrdinalIgnoreCase) && !ApiKind.Equals("MongoDB", StringComparison.OrdinalIgnoreCase))
                 {
                     WriteObject("Cannot create Gremlin, Cassandra, Table accounts from Powershell");
                     return;
@@ -119,7 +120,8 @@ namespace Microsoft.Azure.Commands.CosmosDB
 
             string writeLocation = null;
             Collection<Location> LocationCollection = new Collection<Location>();
-            if(Location != null)
+
+            if(Location != null && Location.Length > 0)
             {
                 int failoverPriority = 0;
                 foreach(string l in Location)
@@ -127,7 +129,10 @@ namespace Microsoft.Azure.Commands.CosmosDB
                     Location loc = new Location(locationName:l, failoverPriority: failoverPriority);
                     LocationCollection.Add(loc);
                     if (failoverPriority == 0)
+                    {
                         writeLocation = l;
+                    }
+
                     failoverPriority++;
                 }
             }
@@ -146,7 +151,7 @@ namespace Microsoft.Azure.Commands.CosmosDB
             }
 
             Collection<VirtualNetworkRule> virtualNetworkRule = new Collection<VirtualNetworkRule>();
-            if(VirtualNetworkRule != null)
+            if(VirtualNetworkRule != null && VirtualNetworkRule.Length > 0)
             {
                 foreach(string id in VirtualNetworkRule)
                 {
@@ -156,7 +161,7 @@ namespace Microsoft.Azure.Commands.CosmosDB
             }
 
             string IpRangeFilterAsString = null;
-            if (IpRangeFilter != null)
+            if (IpRangeFilter != null && IpRangeFilter.Length > 0)
             {
                 for (int i = 0; i < IpRangeFilter.Length; i++)
                 {
