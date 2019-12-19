@@ -26,17 +26,17 @@ namespace Microsoft.Azure.Commands.CosmosDB.Models
             Type = type;
         }
 
-        public PSSqlConflictResolutionPolicy(string type, string path, string storedProcedureName)
+        public PSSqlConflictResolutionPolicy(string type, string path, string conflictResolutionProcedure)
         {
             Type = type;
             Path = path;
-            StoredProcedureName = storedProcedureName;
+            ConflictResolutionProcedure = conflictResolutionProcedure;
         }
 
         public string Type { get; set; }
 
         public string Path { get; set; }
 
-        public string StoredProcedureName { get; set; }
+        public string ConflictResolutionProcedure { get; set; }
     }
 }

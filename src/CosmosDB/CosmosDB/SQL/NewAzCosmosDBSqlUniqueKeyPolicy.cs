@@ -26,8 +26,10 @@ namespace Microsoft.Azure.Commands.CosmosDB
 
         public override void ExecuteCmdlet()
         {
-            PSSqlUniqueKeyPolicy uniqueKeyPolicy = new PSSqlUniqueKeyPolicy();
-            uniqueKeyPolicy.UniqueKey = UniqueKey;
+            PSSqlUniqueKeyPolicy uniqueKeyPolicy = new PSSqlUniqueKeyPolicy
+            {
+                UniqueKey = UniqueKey
+            };
 
             WriteObject(uniqueKeyPolicy);
             return;

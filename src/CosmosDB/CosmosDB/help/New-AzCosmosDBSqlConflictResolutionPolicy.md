@@ -13,7 +13,7 @@ Creates a new CosmosDB Sql ConflictResolutionPolicy object.
 ## SYNTAX
 
 ```
-New-AzCosmosDBSqlConflictResolutionPolicy [-Type <String>] [-Path <String>] [-StoredProcedureName <String>]
+New-AzCosmosDBSqlConflictResolutionPolicy [-Type <String>] [-Path <String>] [-ConflictResolutionProcedure <String>]
  [-DefaultProfile <IAzureContextContainer>] [<CommonParameters>]
 ```
 
@@ -24,11 +24,11 @@ The **New-AzCosmosDBSqlConflictResolutionPolicy** cmdlet creates a new object of
 
 ### Example 1
 ```powershell
-PS C:\> New-AzCosmosDBSqlConflictResolutionPolicy -Type {type} -Path {path} -StoredProcedureName {storedProcedureName}
+PS C:\> New-AzCosmosDBSqlConflictResolutionPolicy -Type {type} -Path {path} -ConflictResolutionProcedure {conflictResolutionProcedure}
 
-Type   Path  StoredProcedureName
+Type   Path  ConflictResolutionProcedure
 ----   ----  -------------------
-{type} {path} {storedProcedureName}
+{type} {path} {conflictResolutionProcedure}
 
 ```
 ## PARAMETERS
@@ -63,7 +63,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -StoredProcedureName
+### -ConflictResolutionProcedure
 To be provided when the type is custom.
 
 ```yaml

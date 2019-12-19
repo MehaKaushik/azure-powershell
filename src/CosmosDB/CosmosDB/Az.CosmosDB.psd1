@@ -53,7 +53,7 @@ DotNetFrameworkVersion = '4.7.2'
 # ProcessorArchitecture = ''
 
 # Modules that must be imported into the global environment prior to importing this module
-RequiredModules = @(@{ModuleName = 'Az.Accounts'; ModuleVersion = '1.6.5'; })
+RequiredModules = @(@{ModuleName = 'Az.Accounts'; ModuleVersion = '1.6.0'; })
 
 # Assemblies that must be loaded prior to importing this module
 RequiredAssemblies = 'Microsoft.Azure.Management.CosmosDB.dll'
@@ -79,14 +79,13 @@ CmdletsToExport = 'Get-AzCosmosDBSqlContainer', 'Get-AzCosmosDBSqlContainerThrou
                'Get-AzCosmosDBSqlStoredProcedure', 'Get-AzCosmosDBSqlTrigger', 'Get-AzCosmosDBSqlUserDefinedFunction',
                'Set-AzCosmosDBSqlStoredProcedure', 'Set-AzCosmosDBSqlTrigger', 'Set-AzCosmosDBSqlUserDefinedFunction',
                'Remove-AzCosmosDBSqlStoredProcedure', 'Remove-AzCosmosDBSqlTrigger', 'Remove-AzCosmosDBSqlUserDefinedFunction',
-               'New-AzCosmosDBSqlCompositeIndex', 'New-AzCosmosDBSqlConflictResolutionPolicy',
-               'New-AzCosmosDBSqlIndexingPolicy', 'New-AzCosmosDBSqlSpatialSpec',
+               'New-AzCosmosDBSqlConflictResolutionPolicy', 'New-AzCosmosDBSqlIndexingPolicy',
                'New-AzCosmosDBSqlUniqueKey', 'New-AzCosmosDBSqlUniqueKeyPolicy',
                'Remove-AzCosmosDBSqlContainer', 'Remove-AzCosmosDBSqlDatabase',
                'Set-AzCosmosDBSqlContainer', 'Set-AzCosmosDBSqlDatabase',
-               'New-AzCosmosDBAccount', 'Remove-AzCosmosDBAccount', 'Get-AzCosmosDBAccount',
-               'Get-AzCosmosDBAccountKey', 'New-AzCosmosDBAccountKey', 'Update-AzCosmosDBAccount', 
-               'Update-AzCosmosDBAccountRegion', 'Update-AzCosmosDBAccountFailoverPriority'
+               'New-AzCosmosDBAccount', 'Remove-AzCosmosDBAccount', 'Get-AzCosmosDBAccount',
+               'Get-AzCosmosDBAccountKey', 'New-AzCosmosDBAccountKey', 'Update-AzCosmosDBAccount',
+               'Update-AzCosmosDBAccountRegion', 'Update-AzCosmosDBAccountFailoverPriority'
  
 # Variables to export from this module
 # VariablesToExport = @()
