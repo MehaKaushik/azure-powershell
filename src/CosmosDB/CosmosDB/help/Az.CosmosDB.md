@@ -32,17 +32,11 @@ Gets the CosmosDB Sql Trigger.
 ### [Get-AzCosmosDBSqlUserDefinedFunction](Get-AzCosmosDBSqlUserDefinedFunction.md)
 Gets the CosmosDB Sql User Defined Function.
 
-### [New-AzCosmosDBSqlCompositeIndex](New-AzCosmosDBSqlCompositeIndex.md)
-Creates a new CosmosDB Sql Composite Index object.
-
 ### [New-AzCosmosDBSqlConflictResolutionPolicy](New-AzCosmosDBSqlConflictResolutionPolicy.md)
 Creates a new CosmosDB Sql ConflictResolutionPolicy object.
 
 ### [New-AzCosmosDBSqlIndexingPolicy](New-AzCosmosDBSqlIndexingPolicy.md)
 Creates a new CosmosDB Sql IndexingPolicy object.
-
-### [New-AzCosmosDBSqlSpatialSpec](New-AzCosmosDBSqlSpatialSpec.md)
-Creates a new CosmosDB Sql SpatialSpec object.
 
 ### [New-AzCosmosDBSqlUniqueKey](New-AzCosmosDBSqlUniqueKey.md)
 Creates a new CosmosDB Sql UniqueKey object.

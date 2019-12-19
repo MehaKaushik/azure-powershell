@@ -22,16 +22,16 @@ namespace Microsoft.Azure.Commands.CosmosDB
     [Cmdlet(VerbsCommon.New, ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "CosmosDBSqlIndexingPolicy", SupportsShouldProcess = true), OutputType(typeof(PSSqlIndexingPolicy))]
     public class NewAzCosmosDBSqlIndexingPolicy : AzureCosmosDBCmdletBase
     {
-        [Parameter(Mandatory = false, HelpMessage = Constants.IndexingPolicyIncludedPathHelpMessage)]
+        [Parameter(Mandatory = true, HelpMessage = Constants.IndexingPolicyIncludedPathHelpMessage)]
         public string[] IncludedPath { get; set; }
 
-        [Parameter(Mandatory = false, HelpMessage = Constants.IndexingPolicyExcludedPathHelpMessage)]
+        [Parameter(Mandatory = true, HelpMessage = Constants.IndexingPolicyExcludedPathHelpMessage)]
         public string[] ExcludedPath { get; set; }
 
         [Parameter(Mandatory = false, HelpMessage = Constants.IndexingPolicyAutomaticHelpMessage)]
         public bool? Automatic { get; set; }
 
-        [Parameter(Mandatory = false, HelpMessage = Constants.IndexingPolicyIndexingModeIndexHelpMessage)]
+        [Parameter(Mandatory = true, HelpMessage = Constants.IndexingPolicyIndexingModeIndexHelpMessage)]
         public string IndexingMode { get; set; }
 
         public override void ExecuteCmdlet()

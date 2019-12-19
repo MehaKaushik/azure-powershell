@@ -68,7 +68,7 @@ namespace Microsoft.Azure.Commands.CosmosDB
         [Parameter(Mandatory = false, HelpMessage = Constants.ConflictResolutionPolicyHelpMessage)]
         public PSSqlConflictResolutionPolicy ConflictResolutionPolicy { get; set; }
 
-        [Parameter(Mandatory = false, ParameterSetName = ParentObjectParameterSet, HelpMessage = Constants.SqlDatabaseObjectHelpMessage)]
+        [Parameter(Mandatory = true, ValueFromPipelineByPropertyName = true, ParameterSetName = ParentObjectParameterSet, HelpMessage = Constants.SqlDatabaseObjectHelpMessage)]
         public PSSqlDatabaseGetResults InputObject { get; set; }
 
         [Parameter(Mandatory = false, HelpMessage = Constants.AsJobHelpMessage)]
@@ -122,10 +122,17 @@ namespace Microsoft.Azure.Commands.CosmosDB
             {
                 ConflictResolutionPolicy conflictResolutionPolicy = new ConflictResolutionPolicy
                 {
-                    ConflictResolutionPath = ConflictResolutionPolicy.Path,
-                    ConflictResolutionProcedure = ConflictResolutionPolicy.StoredProcedureName,
                     Mode = ConflictResolutionPolicy.Type
                 };
+
+                if (ConflictResolutionPolicy.Type.Equals("LastWriterWins", StringComparison.OrdinalIgnoreCase))
+                {
+                    conflictResolutionPolicy.ConflictResolutionPath = ConflictResolutionPolicy.Path;
+                }
+                else if (ConflictResolutionPolicy.Type.Equals("Custom", StringComparison.OrdinalIgnoreCase))
+                {
+                    conflictResolutionPolicy.ConflictResolutionProcedure = ConflictResolutionPolicy.ConflictResolutionProcedure;
+                }
 
                 sqlContainerResource.ConflictResolutionPolicy = conflictResolutionPolicy;
             }
