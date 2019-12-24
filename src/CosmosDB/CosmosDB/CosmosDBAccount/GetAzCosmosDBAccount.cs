@@ -44,8 +44,11 @@ namespace Microsoft.Azure.Commands.CosmosDB
                 if (!string.IsNullOrEmpty(Name))
                 { 
                     IEnumerable<DatabaseAccountGetResults>  DatabaseAccounts = CosmosDBManagementClient.DatabaseAccounts.ListByResourceGroupWithHttpMessagesAsync(ResourceGroupName).GetAwaiter().GetResult().Body;
-                    var PSDatabaseAccounts = DatabaseAccounts.Select(p => new PSDatabaseAccount(p));
-                    WriteObject(PSDatabaseAccounts);
+                    foreach (DatabaseAccountGetResults DatabaseAccount in DatabaseAccounts)
+                    {
+                        WriteObject(new PSDatabaseAccount(DatabaseAccount));
+                    }
+
                     return;
                 }
             }
