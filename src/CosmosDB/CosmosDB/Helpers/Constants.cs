@@ -77,6 +77,8 @@ namespace Microsoft.Azure.Commands.CosmosDB.Helpers
         public const string TriggerBodyHelpMessage = "The body of the Trigger.";
         public const string TriggerOperationHelpMessage = "The operation the trigger is associated with. Possible values include: 'All', 'Create', 'Update', 'Delete', 'Replace' ";
         public const string TriggerTypeHelpMessage = "Type of the Trigger. Possible values include: 'Pre', 'Post'";
-
+        public const string SqlUserDefinedFunctionObjectHelpMessage = "Sql User Defined Function Object";
+        public const string SqlTriggerObjectHelpMessage = "Sql trigger Object";
+        public const string SqlStoredProcedureObjectHelpMessage = "Sql Stored Procedure Object";
     }
 }

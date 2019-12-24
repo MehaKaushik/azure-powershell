@@ -39,7 +39,7 @@ namespace Microsoft.Azure.Commands.CosmosDB
         [ResourceGroupCompleter]
         public string ResourceGroupName { get; set; }
 
-        [Parameter(Mandatory = true, ValueFromPipelineByPropertyName = true, ParameterSetName = ObjectParameterSet, HelpMessage = Constants.SqlDatabaseObjectHelpMessage)]
+        [Parameter(Mandatory = true, ParameterSetName = ObjectParameterSet, HelpMessage = Constants.SqlDatabaseObjectHelpMessage)]
         public PSSqlDatabaseGetResults InputObject { get; set; }
 
         [Parameter(Mandatory = false, HelpMessage = Constants.PassThruHelpMessage)]
@@ -55,7 +55,7 @@ namespace Microsoft.Azure.Commands.CosmosDB
                 ResourceIdentifier resourceIdentifier = new ResourceIdentifier(InputObject.Id);
                 ResourceGroupName = resourceIdentifier.ResourceGroupName;
                 Name = resourceIdentifier.ResourceName;
-                AccountName = resourceIdentifier.ParentResource;
+                AccountName = ResourceIdentifierExtensions.GetDatabaseAccountName(resourceIdentifier);
             }
 
             try
@@ -70,6 +70,7 @@ namespace Microsoft.Azure.Commands.CosmosDB
                 if (PassThru)
                     WriteObject(bool.FalseString);
             }
+
             return;
         }
     }

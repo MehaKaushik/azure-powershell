@@ -34,10 +34,10 @@ namespace Microsoft.Azure.Commands.CosmosDB
         [Parameter(Mandatory = true, ParameterSetName = NameParameterSet, HelpMessage = Constants.AccountNameHelpMessage)]
         public string AccountName { get; set; }
 
-        [Parameter(Mandatory = false, ParameterSetName = NameParameterSet, HelpMessage = Constants.DatabaseNameHelpMessage)]
+        [Parameter(Mandatory = false, HelpMessage = Constants.DatabaseNameHelpMessage)]
         public string Name { get; set; }
 
-        [Parameter(Mandatory = true, ValueFromPipelineByPropertyName = true, ParameterSetName = ObjectParameterSet, HelpMessage = Constants.AccountObjectHelpMessage)]
+        [Parameter(Mandatory = true, ParameterSetName = ObjectParameterSet, HelpMessage = Constants.AccountObjectHelpMessage)]
         public PSDatabaseAccount InputObject { get; set; }
 
         [Parameter(Mandatory = false, HelpMessage = Constants.SqlDatabaseDetailedParamHelpMessage)]
@@ -70,6 +70,7 @@ namespace Microsoft.Azure.Commands.CosmosDB
                 foreach (SqlDatabaseGetResults sqlDatabase in sqlDatabases)
                     WriteObject(new PSSqlDatabaseGetResults(sqlDatabase));
             }
+
             return;
         }
     }

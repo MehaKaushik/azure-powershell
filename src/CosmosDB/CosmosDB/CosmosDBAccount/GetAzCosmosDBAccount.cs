@@ -20,7 +20,6 @@ using Microsoft.Azure.Commands.CosmosDB.Helpers;
 using Microsoft.Azure.Management.Internal.Resources.Utilities.Models;
 using Microsoft.Azure.Management.CosmosDB.Models;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Microsoft.Azure.Commands.CosmosDB
 {

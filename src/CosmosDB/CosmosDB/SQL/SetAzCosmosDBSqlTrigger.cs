@@ -56,19 +56,40 @@ namespace Microsoft.Azure.Commands.CosmosDB
         [Parameter(Mandatory = false, HelpMessage = Constants.TriggerTypeHelpMessage)]
         public string TriggerType { get; set; }
 
+        [Parameter(Mandatory = true, ParameterSetName = ParentObjectParameterSet, HelpMessage = Constants.SqlContainerObjectHelpMessage)]
+        public PSSqlContainerGetResults InputObject { get; set; }
+
         [Parameter(Mandatory = false, HelpMessage = Constants.AsJobHelpMessage)]
         public SwitchParameter AsJob { get; set; }
 
         public override void ExecuteCmdlet()
         {
+            if (ParameterSetName.Equals(ParentObjectParameterSet))
+            {
+                ResourceIdentifier resourceIdentifier = new ResourceIdentifier(InputObject.Id);
+                ResourceGroupName = resourceIdentifier.ResourceGroupName;
+                ContainerName = resourceIdentifier.ResourceName;
+                DatabaseName = ResourceIdentifierExtensions.GetSqlDatabaseName(resourceIdentifier);
+                AccountName = ResourceIdentifierExtensions.GetDatabaseAccountName(resourceIdentifier);
+            }
+
+            if(string.IsNullOrEmpty(TriggerOperation))
+            {
+                TriggerOperation = "All";
+            }
+
+            if(string.IsNullOrEmpty(TriggerType))
+            {
+                TriggerType = "Pre";
+            }
 
             SqlTriggerCreateUpdateParameters sqlTriggerCreateUpdateParameters = new SqlTriggerCreateUpdateParameters
             {
                 Resource = new SqlTriggerResource
                 {
                     Id = Name,
-                    TriggerOperation = "All",
-                    TriggerType = "Pre",
+                    TriggerOperation = TriggerOperation,
+                    TriggerType = TriggerType,
                     Body = Body
                 },
                 Options = new Dictionary<string, string>() { }

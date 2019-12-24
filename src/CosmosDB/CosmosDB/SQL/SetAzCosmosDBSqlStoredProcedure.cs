@@ -18,6 +18,7 @@ using Microsoft.Azure.Commands.CosmosDB.Models;
 using Microsoft.Azure.Commands.ResourceManager.Common.ArgumentCompleters;
 using Microsoft.Azure.Commands.CosmosDB.Helpers;
 using Microsoft.Azure.Management.CosmosDB.Models;
+using Microsoft.Azure.Management.Internal.Resources.Utilities.Models;
 
 namespace Microsoft.Azure.Commands.CosmosDB
 {
@@ -43,7 +44,7 @@ namespace Microsoft.Azure.Commands.CosmosDB
         [Parameter(Mandatory = true, HelpMessage = Constants.StoredProcedureBodyHelpMessage)]
         public string Body { get; set; }
 
-        [Parameter(Mandatory = true, ValueFromPipelineByPropertyName = true, ParameterSetName = ParentObjectParameterSet, HelpMessage = Constants.SqlContainerObjectHelpMessage)]
+        [Parameter(Mandatory = true, ParameterSetName = ParentObjectParameterSet, HelpMessage = Constants.SqlContainerObjectHelpMessage)]
         public PSSqlContainerGetResults InputObject { get; set; }
 
         [Parameter(Mandatory = false, HelpMessage = Constants.AsJobHelpMessage)]
@@ -51,13 +52,14 @@ namespace Microsoft.Azure.Commands.CosmosDB
 
         public override void ExecuteCmdlet()
         {
-            //if(ParameterSetName.Equals(ParentObjectParameterSet))
-            //{
-            //    ResourceIdentifier resourceIdentifier = new ResourceIdentifier(InputObject.Id);
-            //    ResourceGroupName = resourceIdentifier.ResourceGroupName;
-            //    ContainerName = resourceIdentifier.ResourceName;
-            //    DatabaseName = resourceIdentifier.ParentResource;
-            //}
+            if (ParameterSetName.Equals(ParentObjectParameterSet))
+            {
+                ResourceIdentifier resourceIdentifier = new ResourceIdentifier(InputObject.Id);
+                ResourceGroupName = resourceIdentifier.ResourceGroupName;
+                ContainerName = resourceIdentifier.ResourceName;
+                DatabaseName = ResourceIdentifierExtensions.GetSqlDatabaseName(resourceIdentifier);
+                AccountName = ResourceIdentifierExtensions.GetDatabaseAccountName(resourceIdentifier);
+            }
 
             SqlStoredProcedureCreateUpdateParameters sqlStoredProcedureCreateUpdateParameters = new SqlStoredProcedureCreateUpdateParameters
             {

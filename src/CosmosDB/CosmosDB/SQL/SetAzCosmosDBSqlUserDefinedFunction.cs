@@ -50,21 +50,22 @@ namespace Microsoft.Azure.Commands.CosmosDB
         [Parameter(Mandatory = true, HelpMessage = Constants.UserDefinedFunctionBodyHelpMessage)]
         public string Body { get; set; }
 
-        //[Parameter(Mandatory = false, ParameterSetName = ParentObjectParameterSet, HelpMessage = Constants.SqlContainerObjectHelpMessage)]
-        //public PSSqlContainerGetResults InputObject { get; set; }
+        [Parameter(Mandatory = true, ParameterSetName = ParentObjectParameterSet, HelpMessage = Constants.SqlContainerObjectHelpMessage)]
+        public PSSqlContainerGetResults InputObject { get; set; }
 
         [Parameter(Mandatory = false, HelpMessage = Constants.AsJobHelpMessage)]
         public SwitchParameter AsJob { get; set; }
 
         public override void ExecuteCmdlet()
         {
-            //if(ParameterSetName.Equals(ParentObjectParameterSet))
-            //{
-            //    ResourceIdentifier resourceIdentifier = new ResourceIdentifier(InputObject.Id);
-            //    ResourceGroupName = resourceIdentifier.ResourceGroupName;
-            //    ContainerName = resourceIdentifier.ResourceName;
-            //    DatabaseName = resourceIdentifier.ParentResource;
-            //}
+            if (ParameterSetName.Equals(ParentObjectParameterSet))
+            {
+                ResourceIdentifier resourceIdentifier = new ResourceIdentifier(InputObject.Id);
+                ResourceGroupName = resourceIdentifier.ResourceGroupName;
+                ContainerName = resourceIdentifier.ResourceName;
+                DatabaseName = ResourceIdentifierExtensions.GetSqlDatabaseName(resourceIdentifier);
+                AccountName = ResourceIdentifierExtensions.GetDatabaseAccountName(resourceIdentifier);
+            }
 
             SqlUserDefinedFunctionCreateUpdateParameters sqlStoredProcedureCreateUpdateParameters = new SqlUserDefinedFunctionCreateUpdateParameters
             {
