@@ -15,23 +15,29 @@
 using System.Management.Automation;
 using Microsoft.Azure.Commands.CosmosDB.Models;
 using Microsoft.Azure.Commands.CosmosDB.Helpers;
+using System.Collections.Generic;
+using Microsoft.Azure.Commands.ResourceManager.Common.ArgumentCompleters;
 
 namespace Microsoft.Azure.Commands.CosmosDB
 {
-    [Cmdlet(VerbsCommon.New, ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "CosmosDBUniqueKeyPolicy", SupportsShouldProcess = true), OutputType(typeof(PSUniqueKeyPolicy))]
-    public class NewAzCosmosDBUniqueKeyPolicy : AzureCosmosDBCmdletBase
+    [Cmdlet(VerbsCommon.New, ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "CosmosDBCassandraClusterKey"), OutputType(typeof(PSClusterKey))]
+    public class NewAzCosmosDBCassandraClusterKey : AzureCosmosDBCmdletBase
     {
-        [Parameter(Mandatory = true, HelpMessage = Constants.DatabaseNameHelpMessage)]
-        public PSUniqueKey[] UniqueKey { get; set; }
+        [Parameter(Mandatory = true, HelpMessage = Constants.CassandraClusterKeyNameHelpMessage)]
+        public string Name { get; set; }
+
+        [Parameter(Mandatory = true, HelpMessage = Constants.CassandraClusterKeyOrderByHelpMessage)]
+        [PSArgumentCompleter("Asc", "Desc")]
+        public string OrderBy { get; set; }
 
         public override void ExecuteCmdlet()
         {
-            PSUniqueKeyPolicy uniqueKeyPolicy = new PSUniqueKeyPolicy
+            WriteObject(new PSClusterKey
             {
-                UniqueKey = UniqueKey
-            };
+                Name = Name,
+                OrderBy = OrderBy
+            });
 
-            WriteObject(uniqueKeyPolicy);
             return;
         }
     }

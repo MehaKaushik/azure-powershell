@@ -14,13 +14,13 @@
 namespace Microsoft.Azure.Commands.CosmosDB.Models
 {
 
-    public class PSSqlUniqueKeyPolicy
+    public class PSUniqueKeyPolicy
     {
-        public PSSqlUniqueKeyPolicy()
+        public PSUniqueKeyPolicy()
         {
         }        
 
-        public PSSqlUniqueKeyPolicy(PSSqlUniqueKey[] uniqueKey)
+        public PSUniqueKeyPolicy(PSUniqueKey[] uniqueKey)
         {
             UniqueKey = uniqueKey;
         }
@@ -28,6 +28,6 @@ namespace Microsoft.Azure.Commands.CosmosDB.Models
         /// <summary>
         /// Gets or sets the UniqueKey for the SqlUniqueKeyPolicy
         /// </summary>
-        public PSSqlUniqueKey[] UniqueKey { get; set; }
+        public PSUniqueKey[] UniqueKey { get; set; }
     }
 }

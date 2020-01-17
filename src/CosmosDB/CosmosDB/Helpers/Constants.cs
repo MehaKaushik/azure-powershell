@@ -12,6 +12,8 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
+using Microsoft.Azure.Management.WebSites.Version2016_09_01.Models;
+
 namespace Microsoft.Azure.Commands.CosmosDB.Helpers
 {
     internal static class Constants
@@ -41,7 +43,7 @@ namespace Microsoft.Azure.Commands.CosmosDB.Helpers
         public const string ApiKindHelpMessage = "The type of Cosmos DB database account to create. Accepted values: GlobalDocumentDB, Sql, MongoDB, Gremlin, Table, Cassandra. Default value: GlobalDocumentDB ";
         public const string AccountKeyTypeHelpMessage = "Value from: {ConnectionStrings, Keys, ReadOnlyKeys}. Default is Keys.";
         
-        //Sql cmdlets help messages
+        //Sql and common cmdlets help messages
         public const string DatabaseNameHelpMessage = "Database name.";
         public const string ContainerNameHelpMessage = "Container name.";
         public const string StoredProcedureNameHelpMessage = "Stored Prcodecure Name.";
@@ -54,10 +56,10 @@ namespace Microsoft.Azure.Commands.CosmosDB.Helpers
         public const string SqlContainerThroughputHelpMessage = "The throughput of SQL container (RU/s). Default value is 400.";
         public const string TtlInSecondsHelpMessage = "Default Ttl in seconds. If the value is missing or set to  - 1, items don’t expire. If the value is set to n, items will expire n seconds after last modified time. ";
         public const string SqlDatabaseObjectHelpMessage = "Sql Database object.";
-        public const string SqlContainerDetailedParamHelpMessage = "If provided then, the cmdlet returns the container with the throughput value. ";
+        public const string SqlContainerDetailedParamHelpMessage = "If provided then, the cmdlet returns the container with the corresponding throughput value. ";
         public const string SqlContainerObjectHelpMessage = "Sql Container object.";
         public const string SqlDatabaseThroughputHelpMessage = "The throughput of SQL database (RU/s). Default value is 400.";
-        public const string SqlDatabaseDetailedParamHelpMessage = "If provided then, the cmdlet returns the container with the throughput value. ";
+        public const string SqlDatabaseDetailedParamHelpMessage = "If provided then, the cmdlet returns the container with the corresponding throughput value. ";
         public const string ConflictResolutionPolicyTypeHelpMessage = "Can have the values: LastWriterWins, Custom, Manual.";
         public const string ConflictResolutionPolicyPathHelpMessage = "To be provided when the type is LastWriterWins.";
         public const string ConflictResolutionPolicyStoredProcedureNameHelpMessage = "To be provided when the type is custom.";
@@ -75,10 +77,57 @@ namespace Microsoft.Azure.Commands.CosmosDB.Helpers
         public const string StoredProcedureBodyHelpMessage = "The body of the Stored Procedure.";
         public const string UserDefinedFunctionBodyHelpMessage = "The body of the User Defined Function.";
         public const string TriggerBodyHelpMessage = "The body of the Trigger.";
-        public const string TriggerOperationHelpMessage = "The operation the trigger is associated with. Possible values include: 'All', 'Create', 'Update', 'Delete', 'Replace' ";
+        public const string TriggerOperationHelpMessage = "The operation the trigger is associated with. Possible values include: 'All', 'Create', 'Update', 'Delete', 'Replace'";
         public const string TriggerTypeHelpMessage = "Type of the Trigger. Possible values include: 'Pre', 'Post'";
         public const string SqlUserDefinedFunctionObjectHelpMessage = "Sql User Defined Function Object";
         public const string SqlTriggerObjectHelpMessage = "Sql trigger Object";
         public const string SqlStoredProcedureObjectHelpMessage = "Sql Stored Procedure Object";
+
+        //MongoDB cmdlets help messages
+        public const string CollectionNameHelpMessage = "Collection name.";
+        public const string MongoDatabaseObjectHelpMessage = "Mongo Database object.";
+        public const string MongoCollectionObjectHelpMessage = "Sql Container object.";
+        public const string MongoCollectionDetailedParamHelpMessage = "If provided then, the cmdlet returns the collection with the corresponding throughput value.";
+        public const string MongoDatabaseDetailedParamHelpMessage = "If provided then, the cmdlet returns the database with the corresponding throughput value.";
+        public const string MongoShardKeyHelpMessage = "Sharding key path.";
+        public const string MongoIndexTtlInSeconds = "Number of seconds after which the index expires.";
+        public const string MongoIndexUnique = "Bool to indicate if the index is unique or not.";
+        public const string MongoIndexKey = "Array of key values as strings.";
+        public const string MongoIndexHelpMessage = "Array of PSMongoIndex objects.";
+        public const string MongoCollectionThroughputHelpMessage = "The throughput of Mongo collection (RU/s). Default value is 400.";
+        public const string MongoDatabaseThroughputHelpMessage = "The throughput of Mongo database (RU/s). Default value is 400.";
+
+        //Table cmdlets help messages
+        public const string TableNameHelpMessage = "Name of the Table.";
+        public const string TableThroughputHelpMessage = "The throughput of Table (RU/s). Default value is 400.";
+        public const string TableDetailedParamHelpMessage = "If provided then, the cmdlet returns the Table with the corresponding throughput value.";
+        public const string TableObjectHelpMessage = "Table Object.";
+
+        //Cassandra cmdlets help messages
+        public const string KeyspaceNameHelpMessage = "Cassandra Keyspace Name.";
+        public const string CassandraTableNameHelpMessage = "Cassandra Table Name.";
+        public const string CassandraKeyspaceDetailedParamHelpMessage = "If provided then, the cmdlet returns the Keyspace with the corresponding throughput value.";
+        public const string CassandraKeyspaceObjectHelpMessage = "Cassandra Keyspace object.";
+        public const string CassandraTableObjectHelpMessage = "Cassandra Table object.";
+        public const string CassandraTableDetailedParamHelpMessage = "If provided then, the cmdlet returns the Cassandra Table with the corresponding throughput value.";
+        public const string CassandraKeyspaceThroughputHelpMessage = "The throughput of Cassandra Keyspace (RU/s). Default value is 400.";
+        public const string CassandraTableThroughputHelpMessage = "The throughput of Cassandra Keyspace (RU/s). Default value is 400.";
+        public const string CassandraSchemaHelpMessage = "PSCassandraSchema object. Use New-AzCosmosDBCassandraSchema to create this object.";
+        public const string CassandraClusterKeyNameHelpMessage = "Name of Cassandra Cluster Key.";
+        public const string CassandraClusterKeyOrderByHelpMessage = "Ordering of Cassandra Cluster key. Possible values include: 'Asc', 'Desc'";
+        public const string CassandraColumnNameHelpMessage = "Name of Cassandra Column.";
+        public const string CassandraColumnTypeHelpMessage = "Type of Cassandra Column.";
+        public const string CassandraSchemaColumnHelpMessage = "PSColumn object.";
+        public const string CassandraSchemaPartitionKeyHelpMessage = "Array of strings containing Partition Keys.";
+        public const string CassandraSchemaClusterKeyHelpMessage = "Array of PSClusterKey objects.";
+
+        //Gremlin cmdlets help messages
+        public const string GraphNameHelpMessage = "Gremlin Graph Name.";
+        public const string GremlinDatabaseDetailedParamHelpMessage = "If provided then, the cmdlet returns the Database with the corresponding throughput value.";
+        public const string GremlinDatabaseObjectHelpMessage = "Gremlin Database object.";
+        public const string GremlinGraphObjectHelpMessage = "Gremlin Graph object.";
+        public const string GremlinGraphDetailedParamHelpMessage = "If provided then, the cmdlet returns the Gremlin Graph with the corresponding throughput value.";
+        public const string GremlinDatabaseThroughputHelpMessage = "The throughput of Gremlin Database (RU/s). Default value is 400.";
+        public const string GremlinGraphThroughputHelpMessage = "The throughput of Gremlin Graph (RU/s). Default value is 400.";
     }
 }

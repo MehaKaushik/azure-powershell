@@ -85,7 +85,23 @@ CmdletsToExport = 'Get-AzCosmosDBSqlContainer', 'Get-AzCosmosDBSqlContainerThrou
                'Set-AzCosmosDBSqlContainer', 'Set-AzCosmosDBSqlDatabase',
                'New-AzCosmosDBAccount', 'Remove-AzCosmosDBAccount', 'Get-AzCosmosDBAccount',
                'Get-AzCosmosDBAccountKey', 'New-AzCosmosDBAccountKey', 'Update-AzCosmosDBAccount',
-               'Update-AzCosmosDBAccountRegion', 'Update-AzCosmosDBAccountFailoverPriority'
+               'Update-AzCosmosDBAccountRegion', 'Update-AzCosmosDBAccountFailoverPriority',
+               'Get-AzCosmosDBGremlinDatabase', 'Get-AzCosmosDBGremlinDatabaseThroughput',
+               'Get-AzCosmosDBGremlinGraph', 'Get-AzCosmosDBGremlinGraphThroughput',
+               'Remove-AzCosmosDBGremlinDatabase', 'Remove-AzCosmosDBGremlinGraph',
+               'Set-AzCosmosDBGremlinDatabase', 'Set-AzCosmosDBGremlinGraph',
+               'Get-AzCosmosDBTable', 'Get-AzCosmosDBTableThroughput',
+               'Remove-AzCosmosDBTable', 'Set-AzCosmosDBTable',
+               'Get-AzCosmosDBCassandraKeyspace', 'Get-AzCosmosDBCassandraKeyspaceThroughput',
+               'Get-AzCosmosDBCassandraTable', 'Get-AzCosmosDBCassandraTableThroughput',
+               'New-AzCosmosDBCassandraClusterKey', 'New-AzCosmosDBCassandraColumn',
+               'New-AzCosmosDBCassandraSchema', 'Remove-AzCosmosDBCassandraKeyspace',
+               'Remove-AzCosmosDBCassandraTable', 'Set-AzCosmosDBCassandraKeyspace',
+               'Set-AzCosmosDBCassandraTable', 'Get-AzCosmosDBMongoDBCollection',
+               'Get-AzCosmosDBMongoDBCollectionThroughput', 'Get-AzCosmosDBMongoDBDatabase',
+               'Get-AzCosmosDBMongoDBDatabaseThroughput', 'Remove-AzCosmosDBMongoDBCollection',
+               'Remove-AzCosmosDBMongoDBDatabase', 'Set-AzCosmosDBMongoDBCollection',
+               'Set-AzCosmosDBMongoDBDatabase', 'New-AzCosmosDBMongoDBIndex'
  
 # Variables to export from this module
 # VariablesToExport = @()

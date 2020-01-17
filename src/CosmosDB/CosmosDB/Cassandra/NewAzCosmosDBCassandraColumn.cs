@@ -15,23 +15,22 @@
 using System.Management.Automation;
 using Microsoft.Azure.Commands.CosmosDB.Models;
 using Microsoft.Azure.Commands.CosmosDB.Helpers;
+using System.Collections.Generic;
 
 namespace Microsoft.Azure.Commands.CosmosDB
 {
-    [Cmdlet(VerbsCommon.New, ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "CosmosDBUniqueKeyPolicy", SupportsShouldProcess = true), OutputType(typeof(PSUniqueKeyPolicy))]
-    public class NewAzCosmosDBUniqueKeyPolicy : AzureCosmosDBCmdletBase
+    [Cmdlet(VerbsCommon.New, ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "CosmosDBCassandraColumn"), OutputType(typeof(PSColumn))]
+    public class NewAzCosmosDBCassandraColumn : AzureCosmosDBCmdletBase
     {
-        [Parameter(Mandatory = true, HelpMessage = Constants.DatabaseNameHelpMessage)]
-        public PSUniqueKey[] UniqueKey { get; set; }
+        [Parameter(Mandatory = true, HelpMessage = Constants.CassandraColumnNameHelpMessage)]
+        public string Name { get; set; }
+
+        [Parameter(Mandatory = true, HelpMessage = Constants.CassandraColumnTypeHelpMessage)]
+        public string Type { get; set; }
 
         public override void ExecuteCmdlet()
         {
-            PSUniqueKeyPolicy uniqueKeyPolicy = new PSUniqueKeyPolicy
-            {
-                UniqueKey = UniqueKey
-            };
-
-            WriteObject(uniqueKeyPolicy);
+            WriteObject(new PSColumn { Name = Name, Type = Type });
             return;
         }
     }

@@ -12,27 +12,32 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
-using System.Management.Automation;
-using Microsoft.Azure.Commands.CosmosDB.Models;
-using Microsoft.Azure.Commands.CosmosDB.Helpers;
+using Microsoft.Azure.Management.CosmosDB.Models;
 
-namespace Microsoft.Azure.Commands.CosmosDB
+namespace Microsoft.Azure.Commands.CosmosDB.Models
 {
-    [Cmdlet(VerbsCommon.New, ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "CosmosDBUniqueKeyPolicy", SupportsShouldProcess = true), OutputType(typeof(PSUniqueKeyPolicy))]
-    public class NewAzCosmosDBUniqueKeyPolicy : AzureCosmosDBCmdletBase
+    public class PSCassandraPartitionKey
     {
-        [Parameter(Mandatory = true, HelpMessage = Constants.DatabaseNameHelpMessage)]
-        public PSUniqueKey[] UniqueKey { get; set; }
-
-        public override void ExecuteCmdlet()
+        public PSCassandraPartitionKey()
         {
-            PSUniqueKeyPolicy uniqueKeyPolicy = new PSUniqueKeyPolicy
-            {
-                UniqueKey = UniqueKey
-            };
-
-            WriteObject(uniqueKeyPolicy);
-            return;
         }
+
+        public PSCassandraPartitionKey(CassandraPartitionKey cassandraPartitionKey)
+        {
+            Name = cassandraPartitionKey.Name;
+        }
+
+        static public CassandraPartitionKey ConvertPSCassandraPartitionKeyToCassandraPartitionKey(PSCassandraPartitionKey psCassandraPartitionKey)
+        {
+            return new CassandraPartitionKey
+            {
+                Name = psCassandraPartitionKey.Name
+            };
+        }
+
+        //
+        // Summary:
+        //     Gets or sets name of the Cosmos DB Cassandra table partition key
+        public string Name { get; set; }
     }
 }

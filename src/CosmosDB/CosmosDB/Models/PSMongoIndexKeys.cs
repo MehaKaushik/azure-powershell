@@ -12,22 +12,31 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
+using Microsoft.Azure.Management.CosmosDB.Models;
+using System.Collections.Generic;
+
 namespace Microsoft.Azure.Commands.CosmosDB.Models
 {
-    public class PSSqlUniqueKey
+    public class PSMongoIndexKeys
     {
-        public PSSqlUniqueKey()
+        public PSMongoIndexKeys()
         {
         }
 
-        public PSSqlUniqueKey(string[] path)
+        public PSMongoIndexKeys(MongoIndexKeys mongoIndexKeys)
         {
-            Path = path;
+            Keys = mongoIndexKeys.Keys;
         }
 
-        /// <summary>
-        /// Gets or sets the Path for the UniqueKey
-        /// </summary>
-        public string[] Path { get; set; }
+        static public MongoIndexKeys ConvertPSMongoIndexKeysToMongoIndexKeys(PSMongoIndexKeys psMongoIndexKeys)
+        {
+            return new MongoIndexKeys{ Keys = psMongoIndexKeys.Keys };
+        }
+
+        //
+        // Summary:
+        //     Gets or sets list of keys for each MongoDB collection in the Azure Cosmos DB
+        //     service
+        public IList<string> Keys { get; set; }
     }
 }

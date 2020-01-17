@@ -19,8 +19,8 @@ using System;
 
 namespace Microsoft.Azure.Commands.CosmosDB
 {
-    [Cmdlet(VerbsCommon.New, ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "CosmosDBSqlIndexingPolicy", SupportsShouldProcess = true), OutputType(typeof(PSSqlIndexingPolicy))]
-    public class NewAzCosmosDBSqlIndexingPolicy : AzureCosmosDBCmdletBase
+    [Cmdlet(VerbsCommon.New, ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "CosmosDBIndexingPolicy", SupportsShouldProcess = true), OutputType(typeof(PSIndexingPolicy))]
+    public class NewAzCosmosDBIndexingPolicy : AzureCosmosDBCmdletBase
     {
         [Parameter(Mandatory = true, HelpMessage = Constants.IndexingPolicyIncludedPathHelpMessage)]
         public string[] IncludedPath { get; set; }
@@ -36,7 +36,7 @@ namespace Microsoft.Azure.Commands.CosmosDB
 
         public override void ExecuteCmdlet()
         {
-            PSSqlIndexingPolicy sqlIndexingPolicy = new PSSqlIndexingPolicy();
+            PSIndexingPolicy sqlIndexingPolicy = new PSIndexingPolicy();
 
             if (IncludedPath != null && IncludedPath.Length > 0)
                 sqlIndexingPolicy.IncludedPaths = IncludedPath;

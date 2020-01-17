@@ -12,31 +12,38 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
+using Microsoft.Azure.Management.CosmosDB.Models;
+using System.Collections.Generic;
+
 namespace Microsoft.Azure.Commands.CosmosDB.Models
 {
-
-    public class PSSqlConflictResolutionPolicy
+    public class PSColumn
     {
-        public PSSqlConflictResolutionPolicy()
+        public PSColumn()
         {
         }
 
-        public PSSqlConflictResolutionPolicy(string type)
+        public PSColumn(Column column)
         {
-            Type = type;
+            Name = column.Name;
+            Type = column.Type;
         }
 
-        public PSSqlConflictResolutionPolicy(string type, string path, string conflictResolutionProcedure)
+        static public Column ConvertPSColumnToColumn(PSColumn psColumn)
         {
-            Type = type;
-            Path = path;
-            ConflictResolutionProcedure = conflictResolutionProcedure;
+            return new Column
+            {
+                Name = psColumn.Name,
+                Type = psColumn.Type
+            };
         }
-
+        //
+        // Summary:
+        //     Gets or sets name of the Cosmos DB Cassandra table column
+        public string Name { get; set; }
+        //
+        // Summary:
+        //     Gets or sets type of the Cosmos DB Cassandra table column
         public string Type { get; set; }
-
-        public string Path { get; set; }
-
-        public string ConflictResolutionProcedure { get; set; }
     }
 }

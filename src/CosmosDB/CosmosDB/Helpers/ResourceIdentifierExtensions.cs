@@ -26,6 +26,12 @@ namespace Microsoft.Azure.Commands.CosmosDB.Helpers
         private const string StoredProcedures = "storedProcedures";
         private const string UserDefinedFunctions = "userDefinedFunctions";
         private const string Triggers = "triggers";
+        private const string GremlinDatabases = "gremlinDatabases";
+        private const string Graphs = "graphs";
+        private const string MongoDBDatabases = "mongodbDatabases";
+        private const string Collections = "collections";
+        private const string CassandraKeyspaces = "cassandraKeyspaces";
+        private const string Tables = "tables";
 
         public static string GetDatabaseAccountName(this ResourceIdentifier resourceId)
         {
@@ -55,6 +61,34 @@ namespace Microsoft.Azure.Commands.CosmosDB.Helpers
         public static string GetSqlTriggerFunctionName(this ResourceIdentifier resourceId)
         {
             return GetChildResourceName(resourceId, Triggers);
+        }
+
+        public static string GetGremlinDatabaseName(this ResourceIdentifier resourceId)
+        {
+            return GetChildResourceName(resourceId, GremlinDatabases);
+        }
+        public static string GetGremlinGraphName(this ResourceIdentifier resourceId)
+        {
+            return GetChildResourceName(resourceId, Graphs);
+        }
+
+        public static string GetMongoDBCollectionName(this ResourceIdentifier resourceId)
+        {
+            return GetChildResourceName(resourceId, Collections);
+        }
+
+        public static string GetMongoDBDatabaseName(this ResourceIdentifier resourceId)
+        {
+            return GetChildResourceName(resourceId, MongoDBDatabases);
+        }
+        public static string GetCassandraTableName(this ResourceIdentifier resourceId)
+        {
+            return GetChildResourceName(resourceId, Tables);
+        }
+
+        public static string GetCassandraKeyspaceName(this ResourceIdentifier resourceId)
+        {
+            return GetChildResourceName(resourceId, CassandraKeyspaces);
         }
 
         private static string GetChildResourceName(this ResourceIdentifier resourceId, string resourceType)

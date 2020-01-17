@@ -17,13 +17,13 @@ using System.Collections.Generic;
 
 namespace Microsoft.Azure.Commands.CosmosDB.Models
 {
-    public class PSSqlIndexingPolicy
+    public class PSIndexingPolicy
     {
-        public PSSqlIndexingPolicy()
+        public PSIndexingPolicy()
         {
         }
 
-        public PSSqlIndexingPolicy(string[] includedPaths, string[] excludedPaths, bool? automatic, string indexingMode)
+        public PSIndexingPolicy(string[] includedPaths, string[] excludedPaths, bool? automatic, string indexingMode)
         {
             IncludedPaths = includedPaths;
             ExcludedPaths = excludedPaths;

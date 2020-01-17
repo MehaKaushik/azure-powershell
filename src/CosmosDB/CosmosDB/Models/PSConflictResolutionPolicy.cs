@@ -12,23 +12,31 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
-using System.Management.Automation;
-using Microsoft.Azure.Commands.CosmosDB.Models;
-using Microsoft.Azure.Commands.CosmosDB.Helpers;
-
-namespace Microsoft.Azure.Commands.CosmosDB
+namespace Microsoft.Azure.Commands.CosmosDB.Models
 {
-    [Cmdlet(VerbsCommon.New, ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "CosmosDBUniqueKey", SupportsShouldProcess = true), OutputType(typeof(PSUniqueKey))]
-    public class NewAzCosmosDBUniqueKey : AzureCosmosDBCmdletBase
-    {
-        [Parameter(Mandatory = true, HelpMessage = Constants.UniqueKeyPathHelpMessage)]
-        public string[] Path { get; set; }
 
-        public override void ExecuteCmdlet()
+    public class PSConflictResolutionPolicy
+    {
+        public PSConflictResolutionPolicy()
         {
-            PSUniqueKey uniqueKey = new PSUniqueKey(Path);
-            WriteObject(uniqueKey);
-            return;
         }
+
+        public PSConflictResolutionPolicy(string type)
+        {
+            Type = type;
+        }
+
+        public PSConflictResolutionPolicy(string type, string path, string conflictResolutionProcedure)
+        {
+            Type = type;
+            Path = path;
+            ConflictResolutionProcedure = conflictResolutionProcedure;
+        }
+
+        public string Type { get; set; }
+
+        public string Path { get; set; }
+
+        public string ConflictResolutionProcedure { get; set; }
     }
 }

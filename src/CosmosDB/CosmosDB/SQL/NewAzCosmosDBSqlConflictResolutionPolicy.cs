@@ -19,8 +19,8 @@ using Microsoft.Azure.Commands.CosmosDB.Models;
 
 namespace Microsoft.Azure.Commands.CosmosDB
 {
-    [Cmdlet(VerbsCommon.New, ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "CosmosDBSqlConflictResolutionPolicy", SupportsShouldProcess = true), OutputType(typeof(PSSqlConflictResolutionPolicy))]
-    public class NewAzCosmosDBSqlConflictResolutionPolicy : AzureCosmosDBCmdletBase
+    [Cmdlet(VerbsCommon.New, ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "CosmosDBConflictResolutionPolicy", SupportsShouldProcess = true), OutputType(typeof(PSConflictResolutionPolicy))]
+    public class NewAzCosmosDBConflictResolutionPolicy : AzureCosmosDBCmdletBase
     {
         [Parameter(Mandatory = true, HelpMessage = Constants.ConflictResolutionPolicyTypeHelpMessage)]
         [PSArgumentCompleter("LastWriterWins", "Custom", "Manual")]
@@ -34,7 +34,7 @@ namespace Microsoft.Azure.Commands.CosmosDB
 
         public override void ExecuteCmdlet()
         {
-            PSSqlConflictResolutionPolicy conflictResolutionPolicy = new PSSqlConflictResolutionPolicy(Type);
+            PSConflictResolutionPolicy conflictResolutionPolicy = new PSConflictResolutionPolicy(Type);
 
             if (!string.IsNullOrEmpty(Path))
                 conflictResolutionPolicy.Path = Path;
