@@ -1,47 +1,47 @@
 ---
 external help file: Microsoft.Azure.PowerShell.Cmdlets.CosmosDB.dll-Help.xml
 Module Name: Az.CosmosDB
-online version: https://docs.microsoft.com/en-us/powershell/module/az.cosmosdb/set-azcosmosdbsqldatabase
+online version:
 schema: 2.0.0
 ---
 
-# Set-AzCosmosDBSqlDatabase
+# Update-AzCosmosDBMongoDBDatabase
 
 ## SYNOPSIS
-Creates a new or updates an existing CosmosDB Sql Database.
+{{ Fill in the Synopsis }}
 
 ## SYNTAX
 
 ### ByNameParameterSet (Default)
 ```
-Set-AzCosmosDBSqlDatabase -ResourceGroupName <String> -AccountName <String> -Name <String>
+Update-AzCosmosDBMongoDBDatabase -ResourceGroupName <String> -AccountName <String> [-Name <String>]
  [-Throughput <Int32>] [-DefaultProfile <IAzureContextContainer>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### ByParentObjectParameterSet
 ```
-Set-AzCosmosDBSqlDatabase -Name <String> [-Throughput <Int32>] -InputObject <PSDatabaseAccount>
+Update-AzCosmosDBMongoDBDatabase [-Name <String>] [-Throughput <Int32>] -ParentObject <PSDatabaseAccount>
  [-DefaultProfile <IAzureContextContainer>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
+### ByObjectParameterSet
+```
+Update-AzCosmosDBMongoDBDatabase [-Name <String>] [-Throughput <Int32>]
+ -InputObject <PSMongoDBDatabaseGetResults> [-DefaultProfile <IAzureContextContainer>] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
+```
+
 ## DESCRIPTION
-The **Set-AzCosmosDBSqlDatabase** cmdlet creates a new or updates an existing CosmosDB Sql Database.
+{{ Fill in the Description }}
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> Set-AzCosmosDBSqlDatabase -ResourceGroupName {resourceGroupName} -AccountName {accountName}-Name {databaseName}
-
-Name                    : {databaseName}
-Id                      : {databaseId}
-SqlDatabaseGetResultsId :
-_rid                    :
-_ts                     :
-_etag                   :
-_colls                  :
-_users                  :
+PS C:\> {{ Add example code here }}
 ```
+
+{{ Add example description here }}
 
 ## PARAMETERS
 
@@ -49,7 +49,7 @@ _users                  :
 Name of the Cosmos DB database account.
 
 ```yaml
-Type: String
+Type: System.String
 Parameter Sets: ByNameParameterSet
 Aliases:
 
@@ -60,26 +60,11 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: cf
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -DefaultProfile
 The credentials, account, tenant, and subscription used for communication with Azure.
 
 ```yaml
-Type: IAzureContextContainer
+Type: Microsoft.Azure.Commands.Common.Authentication.Abstractions.Core.IAzureContextContainer
 Parameter Sets: (All)
 Aliases: AzContext, AzureRmContext, AzureCredential
 
@@ -91,17 +76,17 @@ Accept wildcard characters: False
 ```
 
 ### -InputObject
-CosmosDB Account object
+Mongo Database object.
 
 ```yaml
-Type: PSDatabaseAccount
-Parameter Sets: ByParentObjectParameterSet
+Type: Microsoft.Azure.Commands.CosmosDB.Models.PSMongoDBDatabaseGetResults
+Parameter Sets: ByObjectParameterSet
 Aliases:
 
 Required: True
 Position: Named
 Default value: None
-Accept pipeline input: True (ByValue)
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
@@ -109,8 +94,23 @@ Accept wildcard characters: False
 Database name.
 
 ```yaml
-Type: String
+Type: System.String
 Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ParentObject
+CosmosDB Account object
+
+```yaml
+Type: Microsoft.Azure.Commands.CosmosDB.Models.PSDatabaseAccount
+Parameter Sets: ByParentObjectParameterSet
 Aliases:
 
 Required: True
@@ -124,7 +124,7 @@ Accept wildcard characters: False
 Name of resource group.
 
 ```yaml
-Type: String
+Type: System.String
 Parameter Sets: ByNameParameterSet
 Aliases:
 
@@ -136,13 +136,28 @@ Accept wildcard characters: False
 ```
 
 ### -Throughput
-The throughput of SQL database (RU/s).
+The throughput of Mongo database (RU/s).
 Default value is 400.
 
 ```yaml
-Type: Int32
+Type: System.Nullable`1[System.Int32]
 Parameter Sets: (All)
 Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
 
 Required: False
 Position: Named
@@ -156,7 +171,7 @@ Shows what would happen if the cmdlet runs.
 The cmdlet is not run.
 
 ```yaml
-Type: SwitchParameter
+Type: System.Management.Automation.SwitchParameter
 Parameter Sets: (All)
 Aliases: wi
 
@@ -176,7 +191,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### Microsoft.Azure.Commands.CosmosDB.Models.PSSqlDatabaseGetResults
+### Microsoft.Azure.Commands.CosmosDB.Models.PSMongoDBDatabaseGetResults
+
+### Microsoft.Azure.Commands.CosmosDB.Exceptions.ResourceNotFoundException
 
 ## NOTES
 

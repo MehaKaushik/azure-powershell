@@ -1,20 +1,20 @@
 ---
 external help file: Microsoft.Azure.PowerShell.Cmdlets.CosmosDB.dll-Help.xml
 Module Name: Az.CosmosDB
-online version: https://docs.microsoft.com/en-us/powershell/module/az.cosmosdb/set-azcosmosdbsqlcontainer
+online version:
 schema: 2.0.0
 ---
 
-# Set-AzCosmosDBSqlContainer
+# New-AzCosmosDBSqlContainer
 
 ## SYNOPSIS
-Creates a new or updates an existing CosmosDB Sql Container.
+{{ Fill in the Synopsis }}
 
 ## SYNTAX
 
 ### ByNameParameterSet (Default)
 ```
-Set-AzCosmosDBSqlContainer -ResourceGroupName <String> -AccountName <String> -DatabaseName <String>
+New-AzCosmosDBSqlContainer -ResourceGroupName <String> -AccountName <String> -DatabaseName <String>
  -Name <String> [-IndexingPolicy <PSSqlIndexingPolicy>] [-PartitionKeyVersion <Int32>]
  -PartitionKeyKind <String> -PartitionKeyPath <String[]> [-Throughput <Int32>] [-TtlInSeconds <Int32>]
  [-UniqueKeyPolicy <PSSqlUniqueKeyPolicy>] [-ConflictResolutionPolicyMode <String>]
@@ -25,7 +25,7 @@ Set-AzCosmosDBSqlContainer -ResourceGroupName <String> -AccountName <String> -Da
 
 ### ByParentObjectParameterSet
 ```
-Set-AzCosmosDBSqlContainer -Name <String> [-IndexingPolicy <PSSqlIndexingPolicy>]
+New-AzCosmosDBSqlContainer -Name <String> [-IndexingPolicy <PSSqlIndexingPolicy>]
  [-PartitionKeyVersion <Int32>] -PartitionKeyKind <String> -PartitionKeyPath <String[]> [-Throughput <Int32>]
  [-TtlInSeconds <Int32>] [-UniqueKeyPolicy <PSSqlUniqueKeyPolicy>] [-ConflictResolutionPolicyMode <String>]
  [-ConflictResolutionPolicyPath <String>] [-ConflictResolutionPolicyProcedure <String>]
@@ -34,18 +34,16 @@ Set-AzCosmosDBSqlContainer -Name <String> [-IndexingPolicy <PSSqlIndexingPolicy>
 ```
 
 ## DESCRIPTION
-The **Set-AzCosmosDBSqlContainer** cmdlet creates a new or updates an existing CosmosDB Sql Container.
+{{ Fill in the Description }}
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> Set-AzCosmosDBSqlContainer -ResourceGroupName {resourceGroupName} -AccountName {accountName} -DatabaseName {databaseName} -Name {containerName} -PartitionKeyKind Hash -PartitionKeyPath {samplePath}
-
-Name                     : {containerName}
-Id                       : {containerId}
-Resource                 : Microsoft.Azure.Commands.CosmosDB.Models.PSSqlContainerGetPropertiesResource
+PS C:\> {{ Add example code here }}
 ```
+
+{{ Add example description here }}
 
 ## PARAMETERS
 
@@ -53,7 +51,7 @@ Resource                 : Microsoft.Azure.Commands.CosmosDB.Models.PSSqlContain
 Name of the Cosmos DB database account.
 
 ```yaml
-Type: String
+Type: System.String
 Parameter Sets: ByNameParameterSet
 Aliases:
 
@@ -64,26 +62,11 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: cf
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -ConflictResolutionPolicy
 ConflictResolutionPolicy Object of type PSSqlConflictResolutionPolicy, when provided this is set as the ConflictResolutionPolicy of the container.
 
 ```yaml
-Type: PSSqlConflictResolutionPolicy
+Type: Microsoft.Azure.Commands.CosmosDB.Models.PSSqlConflictResolutionPolicy
 Parameter Sets: (All)
 Aliases:
 
@@ -96,9 +79,10 @@ Accept wildcard characters: False
 
 ### -ConflictResolutionPolicyMode
 Can have the values: LastWriterWins, Custom, Manual.
+If provided along with ConflictResolutionPolicy parameter, it is ignored.
 
 ```yaml
-Type: String
+Type: System.String
 Parameter Sets: (All)
 Aliases:
 
@@ -111,9 +95,10 @@ Accept wildcard characters: False
 
 ### -ConflictResolutionPolicyPath
 To be provided when the type is LastWriterWins.
+If provided along with ConflictResolutionPolicy parameter, it is ignored.
 
 ```yaml
-Type: String
+Type: System.String
 Parameter Sets: (All)
 Aliases:
 
@@ -126,9 +111,10 @@ Accept wildcard characters: False
 
 ### -ConflictResolutionPolicyProcedure
 To be provided when the type is custom.
+If provided along with ConflictResolutionPolicy parameter, it is ignored.
 
 ```yaml
-Type: String
+Type: System.String
 Parameter Sets: (All)
 Aliases:
 
@@ -143,7 +129,7 @@ Accept wildcard characters: False
 Database name.
 
 ```yaml
-Type: String
+Type: System.String
 Parameter Sets: ByNameParameterSet
 Aliases:
 
@@ -158,7 +144,7 @@ Accept wildcard characters: False
 The credentials, account, tenant, and subscription used for communication with Azure.
 
 ```yaml
-Type: IAzureContextContainer
+Type: Microsoft.Azure.Commands.Common.Authentication.Abstractions.Core.IAzureContextContainer
 Parameter Sets: (All)
 Aliases: AzContext, AzureRmContext, AzureCredential
 
@@ -173,7 +159,7 @@ Accept wildcard characters: False
 Indexing Policy Object of type Microsoft.Azure.Commands.CosmosDB.PSSqlIndexingPolicy.
 
 ```yaml
-Type: PSSqlIndexingPolicy
+Type: Microsoft.Azure.Commands.CosmosDB.Models.PSSqlIndexingPolicy
 Parameter Sets: (All)
 Aliases:
 
@@ -188,7 +174,7 @@ Accept wildcard characters: False
 Sql Database object.
 
 ```yaml
-Type: PSSqlDatabaseGetResults
+Type: Microsoft.Azure.Commands.CosmosDB.Models.PSSqlDatabaseGetResults
 Parameter Sets: ByParentObjectParameterSet
 Aliases:
 
@@ -203,7 +189,7 @@ Accept wildcard characters: False
 Container name.
 
 ```yaml
-Type: String
+Type: System.String
 Parameter Sets: (All)
 Aliases:
 
@@ -219,7 +205,7 @@ The kind of algorithm used for partitioning.
 Possible values include: 'Hash', 'Range'
 
 ```yaml
-Type: String
+Type: System.String
 Parameter Sets: (All)
 Aliases:
 
@@ -234,7 +220,7 @@ Accept wildcard characters: False
 Partition Key Path, e.g., '/address/zipcode'.
 
 ```yaml
-Type: String[]
+Type: System.String[]
 Parameter Sets: (All)
 Aliases:
 
@@ -249,7 +235,7 @@ Accept wildcard characters: False
 The version of the partition key definition
 
 ```yaml
-Type: Int32
+Type: System.Nullable`1[System.Int32]
 Parameter Sets: (All)
 Aliases:
 
@@ -264,7 +250,7 @@ Accept wildcard characters: False
 Name of resource group.
 
 ```yaml
-Type: String
+Type: System.String
 Parameter Sets: ByNameParameterSet
 Aliases:
 
@@ -280,7 +266,7 @@ The throughput of SQL container (RU/s).
 Default value is 400.
 
 ```yaml
-Type: Int32
+Type: System.Nullable`1[System.Int32]
 Parameter Sets: (All)
 Aliases:
 
@@ -297,7 +283,7 @@ If the value is missing or set to  - 1, items don't expire.
 If the value is set to n, items will expire n seconds after last modified time.
 
 ```yaml
-Type: Int32
+Type: System.Nullable`1[System.Int32]
 Parameter Sets: (All)
 Aliases:
 
@@ -312,7 +298,7 @@ Accept wildcard characters: False
 UniqueKeyPolicy Object of type Microsoft.Azure.Commands.CosmosDB.PSSqlUniqueKeyPolicy.
 
 ```yaml
-Type: PSSqlUniqueKeyPolicy
+Type: Microsoft.Azure.Commands.CosmosDB.Models.PSSqlUniqueKeyPolicy
 Parameter Sets: (All)
 Aliases:
 
@@ -323,11 +309,27 @@ Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
-### -WhatIf
-Shows what would happen if the cmdlet runs. The cmdlet is not run.
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
 
 ```yaml
-Type: SwitchParameter
+Type: System.Management.Automation.SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WhatIf
+Shows what would happen if the cmdlet runs.
+The cmdlet is not run.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
 Parameter Sets: (All)
 Aliases: wi
 
@@ -343,11 +345,19 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### None
+### Microsoft.Azure.Commands.CosmosDB.Models.PSSqlIndexingPolicy
+
+### Microsoft.Azure.Commands.CosmosDB.Models.PSSqlUniqueKeyPolicy
+
+### Microsoft.Azure.Commands.CosmosDB.Models.PSSqlConflictResolutionPolicy
+
+### Microsoft.Azure.Commands.CosmosDB.Models.PSSqlDatabaseGetResults
 
 ## OUTPUTS
 
 ### Microsoft.Azure.Commands.CosmosDB.Models.PSSqlDatabaseGetResults
+
+### Microsoft.Azure.Commands.CosmosDB.Exceptions.ConflictingResourceException
 
 ## NOTES
 

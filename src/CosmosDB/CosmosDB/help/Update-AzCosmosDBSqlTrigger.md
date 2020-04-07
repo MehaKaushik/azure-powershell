@@ -1,45 +1,49 @@
 ---
 external help file: Microsoft.Azure.PowerShell.Cmdlets.CosmosDB.dll-Help.xml
 Module Name: Az.CosmosDB
-online version: https://docs.microsoft.com/en-us/powershell/module/az.cosmosdb/set-azcosmosdbcassandratable
+online version:
 schema: 2.0.0
 ---
 
-# Set-AzCosmosDBCassandraTable
+# Update-AzCosmosDBSqlTrigger
 
 ## SYNOPSIS
-Sets the CosmosDB Cassandra Table.
+{{ Fill in the Synopsis }}
 
 ## SYNTAX
 
 ### ByNameParameterSet (Default)
 ```
-Set-AzCosmosDBCassandraTable -ResourceGroupName <String> -AccountName <String> -KeyspaceName <String>
- -Name <String> [-Throughput <Int32>] [-TtlInSeconds <Int32>] -Schema <PSCassandraSchema>
+Update-AzCosmosDBSqlTrigger -ResourceGroupName <String> -AccountName <String> -DatabaseName <String>
+ -ContainerName <String> [-Name <String>] [-Body <String>] [-TriggerOperation <String>] [-TriggerType <String>]
  [-DefaultProfile <IAzureContextContainer>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### ByParentObjectParameterSet
 ```
-Set-AzCosmosDBCassandraTable -Name <String> [-Throughput <Int32>] [-TtlInSeconds <Int32>]
- -Schema <PSCassandraSchema> -InputObject <PSCassandraKeyspaceGetResults>
- [-DefaultProfile <IAzureContextContainer>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Update-AzCosmosDBSqlTrigger [-Name <String>] [-Body <String>] [-TriggerOperation <String>]
+ [-TriggerType <String>] -ParentObject <PSSqlContainerGetResults> [-DefaultProfile <IAzureContextContainer>]
+ [-WhatIf] [-Confirm] [<CommonParameters>]
+```
+
+### ByObjectParameterSet
+```
+Update-AzCosmosDBSqlTrigger [-Name <String>] [-Body <String>] [-TriggerOperation <String>]
+ [-TriggerType <String>] -InputObject <PSSqlTriggerGetResults> [-DefaultProfile <IAzureContextContainer>]
+ [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-The **Set-AzCosmosDBCassandraTable** cmdlet sets the CosmosDB Cassandra Keyspace.
+{{ Fill in the Description }}
 
 ## EXAMPLES
 
 ### Example 1
 ```powershell
-PS C:\> Set-AzCosmosDBCassandraTable -ResourceGroupName {rgName} -AccountName {accountName} -Keyspace {keyspaceName} -Name {tableName}
-Name        Id    Resource
-----        --    -------
-{name}     {id}   Microsoft.Azure.Commands.CosmosDB.Models.PSCassandraTableGetPropertiesResource
+PS C:\> {{ Add example code here }}
 ```
 
-Resource object contains the values of the _rid, _ts, _etag, DefaultTtl and Schema properties.
+{{ Add example description here }}
 
 ## PARAMETERS
 
@@ -47,7 +51,7 @@ Resource object contains the values of the _rid, _ts, _etag, DefaultTtl and Sche
 Name of the Cosmos DB database account.
 
 ```yaml
-Type: String
+Type: System.String
 Parameter Sets: ByNameParameterSet
 Aliases:
 
@@ -58,15 +62,45 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
+### -Body
+The body of the Trigger.
 
 ```yaml
-Type: SwitchParameter
+Type: System.String
 Parameter Sets: (All)
-Aliases: cf
+Aliases:
 
 Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ContainerName
+Container name.
+
+```yaml
+Type: System.String
+Parameter Sets: ByNameParameterSet
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -DatabaseName
+Database name.
+
+```yaml
+Type: System.String
+Parameter Sets: ByNameParameterSet
+Aliases:
+
+Required: True
 Position: Named
 Default value: None
 Accept pipeline input: False
@@ -77,7 +111,7 @@ Accept wildcard characters: False
 The credentials, account, tenant, and subscription used for communication with Azure.
 
 ```yaml
-Type: IAzureContextContainer
+Type: Microsoft.Azure.Commands.Common.Authentication.Abstractions.Core.IAzureContextContainer
 Parameter Sets: (All)
 Aliases: AzContext, AzureRmContext, AzureCredential
 
@@ -89,87 +123,25 @@ Accept wildcard characters: False
 ```
 
 ### -InputObject
-Cassandra Keyspace object.
+Sql trigger Object
 
 ```yaml
-Type: PSCassandraKeyspaceGetResults
-Parameter Sets: ByParentObjectParameterSet
+Type: Microsoft.Azure.Commands.CosmosDB.Models.PSSqlTriggerGetResults
+Parameter Sets: ByObjectParameterSet
 Aliases:
 
 Required: True
 Position: Named
 Default value: None
 Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
-### -KeyspaceName
-Cassandra Keyspace Name.
-
-```yaml
-Type: String
-Parameter Sets: ByNameParameterSet
-Aliases:
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -Name
-Cassandra Table Name.
+Trigger name.
 
 ```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -ResourceGroupName
-Name of resource group.
-
-```yaml
-Type: String
-Parameter Sets: ByNameParameterSet
-Aliases:
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Schema
-PSCassandraSchema object.
-Use New-AzCosmosDBCassandraSchema to create this object.
-
-```yaml
-Type: PSCassandraSchema
-Parameter Sets: (All)
-Aliases:
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
-### -Throughput
-The throughput of Cassandra Keyspace (RU/s).
-Default value is 400.
-
-```yaml
-Type: Int32
+Type: System.String
 Parameter Sets: (All)
 Aliases:
 
@@ -180,15 +152,75 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -TtlInSeconds
-Default Ttl in seconds.
-If the value is missing or set to  - 1, items don't expire.
-If the value is set to n, items will expire n seconds after last modified time.
+### -ParentObject
+Sql Container object.
 
 ```yaml
-Type: Int32
+Type: Microsoft.Azure.Commands.CosmosDB.Models.PSSqlContainerGetResults
+Parameter Sets: ByParentObjectParameterSet
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -ResourceGroupName
+Name of resource group.
+
+```yaml
+Type: System.String
+Parameter Sets: ByNameParameterSet
+Aliases:
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -TriggerOperation
+The operation the trigger is associated with.
+Possible values include: 'All', 'Create', 'Update', 'Delete', 'Replace'
+
+```yaml
+Type: System.String
 Parameter Sets: (All)
 Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -TriggerType
+Type of the Trigger.
+Possible values include: 'Pre', 'Post'
+
+```yaml
+Type: System.String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Confirm
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: System.Management.Automation.SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
 
 Required: False
 Position: Named
@@ -202,7 +234,7 @@ Shows what would happen if the cmdlet runs.
 The cmdlet is not run.
 
 ```yaml
-Type: SwitchParameter
+Type: System.Management.Automation.SwitchParameter
 Parameter Sets: (All)
 Aliases: wi
 
@@ -218,13 +250,15 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### Microsoft.Azure.Commands.CosmosDB.Models.PSCassandraSchema
+### Microsoft.Azure.Commands.CosmosDB.Models.PSSqlContainerGetResults
 
-### Microsoft.Azure.Commands.CosmosDB.Models.PSCassandraKeyspaceGetResults
+### Microsoft.Azure.Commands.CosmosDB.Models.PSSqlTriggerGetResults
 
 ## OUTPUTS
 
-### Microsoft.Azure.Commands.CosmosDB.Models.PSCassandraTableGetResults
+### Microsoft.Azure.Commands.CosmosDB.Models.PSSqlTriggerGetResults
+
+### Microsoft.Azure.Commands.CosmosDB.Exceptions.ResourceNotFoundException
 
 ## NOTES
 
