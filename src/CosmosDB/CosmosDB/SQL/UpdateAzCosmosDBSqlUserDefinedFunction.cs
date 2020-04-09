@@ -12,23 +12,19 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 using System.Management.Automation;
-using System.Text;
-using System.Linq;
 using Microsoft.Azure.Commands.CosmosDB.Models;
-using System.Reflection;
-using Microsoft.Rest.Azure;
 using Microsoft.Azure.Commands.ResourceManager.Common.ArgumentCompleters;
 using Microsoft.Azure.Commands.CosmosDB.Helpers;
 using Microsoft.Azure.Management.Internal.Resources.Utilities.Models;
 using Microsoft.Azure.Management.CosmosDB.Models;
+using Microsoft.Azure.Commands.CosmosDB.Exceptions;
 
 namespace Microsoft.Azure.Commands.CosmosDB
 {
-    [Cmdlet(VerbsCommon.Set, ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "CosmosDBSqlTrigger", DefaultParameterSetName = NameParameterSet, SupportsShouldProcess = true), OutputType(typeof(PSSqlTriggerGetResults))]
-    public class SetAzCosmosDBSqlTrigger : AzureCosmosDBCmdletBase
+    [Cmdlet("Update", ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "CosmosDBSqlUserDefinedFunction", DefaultParameterSetName = NameParameterSet, SupportsShouldProcess = true), OutputType(typeof(PSSqlUserDefinedFunctionGetResults), typeof(ResourceNotFoundException))]
+    public class UpdateAzCosmosDBSqlUserDefinedFunction : AzureCosmosDBCmdletBase
     {
         [Parameter(Mandatory = true, ParameterSetName = NameParameterSet, HelpMessage = Constants.ResourceGroupNameHelpMessage)]
         [ResourceGroupCompleter]
@@ -47,61 +43,47 @@ namespace Microsoft.Azure.Commands.CosmosDB
         [ValidateNotNullOrEmpty]
         public string ContainerName { get; set; }
 
-        [Parameter(Mandatory = true, HelpMessage = Constants.TriggerNameHelpMessage)]
+        [Parameter(Mandatory = false, HelpMessage = Constants.UserDefinedFunctionNameHelpMessage)]
         [ValidateNotNullOrEmpty]
         public string Name { get; set; }
 
-        [Parameter(Mandatory = true, HelpMessage = Constants.TriggerBodyHelpMessage)]
+        [Parameter(Mandatory = false, HelpMessage = Constants.UserDefinedFunctionBodyHelpMessage)]
         [ValidateNotNullOrEmpty]
         public string Body { get; set; }
 
-        [Parameter(Mandatory = false, HelpMessage = Constants.TriggerOperationHelpMessage)]
-        public string TriggerOperation { get; set; }
-
-        [Parameter(Mandatory = false, HelpMessage = Constants.TriggerTypeHelpMessage)]
-        public string TriggerType { get; set; }
-
         [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = ParentObjectParameterSet, HelpMessage = Constants.SqlContainerObjectHelpMessage)]
         [ValidateNotNull]
-        public PSSqlContainerGetResults InputObject { get; set; }
+        public PSSqlContainerGetResults ParentObject { get; set; }
+
+        [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = ObjectParameterSet, HelpMessage = Constants.SqlUserDefinedFunctionObjectHelpMessage)]
+        [ValidateNotNull]
+        public PSSqlUserDefinedFunctionGetResults InputObject { get; set; }
 
         public override void ExecuteCmdlet()
         {
             if (ParameterSetName.Equals(ParentObjectParameterSet))
             {
-                ResourceIdentifier resourceIdentifier = new ResourceIdentifier(InputObject.Id);
+                ResourceIdentifier resourceIdentifier = new ResourceIdentifier(ParentObject.Id);
                 ResourceGroupName = resourceIdentifier.ResourceGroupName;
                 ContainerName = resourceIdentifier.ResourceName;
                 DatabaseName = ResourceIdentifierExtensions.GetSqlDatabaseName(resourceIdentifier);
                 AccountName = ResourceIdentifierExtensions.GetDatabaseAccountName(resourceIdentifier);
             }
 
-            if(string.IsNullOrEmpty(TriggerOperation))
+            SqlUserDefinedFunctionCreateUpdateParameters sqlStoredProcedureCreateUpdateParameters = new SqlUserDefinedFunctionCreateUpdateParameters
             {
-                TriggerOperation = "All";
-            }
-
-            if(string.IsNullOrEmpty(TriggerType))
-            {
-                TriggerType = "Pre";
-            }
-
-            SqlTriggerCreateUpdateParameters sqlTriggerCreateUpdateParameters = new SqlTriggerCreateUpdateParameters
-            {
-                Resource = new SqlTriggerResource
+                Resource = new SqlUserDefinedFunctionResource
                 {
                     Id = Name,
-                    TriggerOperation = TriggerOperation,
-                    TriggerType = TriggerType,
                     Body = Body
                 },
                 Options = new Dictionary<string, string>() { }
             };
 
-            if (ShouldProcess(Name, "Setting CosmosDB Sql Trigger"))
+            if (ShouldProcess(Name, "Setting CosmosDB Sql User Defined Function"))
             {
-                SqlTriggerGetResults sqlTriggerGetResults = CosmosDBManagementClient.SqlResources.CreateUpdateSqlTriggerWithHttpMessagesAsync(ResourceGroupName, AccountName, DatabaseName, ContainerName, Name, sqlTriggerCreateUpdateParameters).GetAwaiter().GetResult().Body;
-                WriteObject(new PSSqlTriggerGetResults(sqlTriggerGetResults));
+                SqlUserDefinedFunctionGetResults sqlUserDefinedFunctionGetResults = CosmosDBManagementClient.SqlResources.CreateUpdateSqlUserDefinedFunctionWithHttpMessagesAsync(ResourceGroupName, AccountName, DatabaseName, ContainerName, Name, sqlStoredProcedureCreateUpdateParameters).GetAwaiter().GetResult().Body;
+                WriteObject(new PSSqlUserDefinedFunctionGetResults(sqlUserDefinedFunctionGetResults));
             }
 
             return;

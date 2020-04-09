@@ -18,13 +18,17 @@ using System.Management.Automation;
 using Microsoft.Azure.Commands.CosmosDB.Models;
 using Microsoft.Azure.Commands.ResourceManager.Common.ArgumentCompleters;
 using Microsoft.Azure.Management.CosmosDB.Models;
+using Microsoft.Azure.Management.CosmosDB;
 using Microsoft.Azure.Management.Internal.Resources.Utilities.Models;
 using Microsoft.Azure.Commands.CosmosDB.Helpers;
+using Microsoft.Azure.Commands.CosmosDB.Exceptions;
+using Microsoft.Rest.Azure;
+using Microsoft.Azure.PowerShell.Cmdlets.CosmosDB.Exceptions;
 
 namespace Microsoft.Azure.Commands.CosmosDB
 {
-    [Cmdlet(VerbsCommon.Set, ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "CosmosDBGremlinDatabase", DefaultParameterSetName = NameParameterSet, SupportsShouldProcess = true), OutputType(typeof(PSGremlinDatabaseGetResults))]
-    public class SetAzCosmosDBGremlinDatabase : AzureCosmosDBCmdletBase
+    [Cmdlet("Update", ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "CosmosDBCassandraKeyspace", DefaultParameterSetName = NameParameterSet, SupportsShouldProcess = true), OutputType(typeof(PSCassandraKeyspaceGetResults), typeof(ResourceNotFoundException))]
+    public class UpdateAzCosmosDBCassandraKeyspace : AzureCosmosDBCmdletBase
     {
         [Parameter(Mandatory = true, ParameterSetName = NameParameterSet, HelpMessage = Constants.ResourceGroupNameHelpMessage)]
         [ResourceGroupCompleter]
@@ -35,46 +39,62 @@ namespace Microsoft.Azure.Commands.CosmosDB
         [ValidateNotNullOrEmpty]
         public string AccountName { get; set; }
 
-        [Parameter(Mandatory = true, HelpMessage = Constants.DatabaseNameHelpMessage)]
+        [Parameter(Mandatory = false, HelpMessage = Constants.KeyspaceNameHelpMessage)]
         [ValidateNotNullOrEmpty]
         public string Name { get; set; }
 
-        [Parameter(Mandatory = false, HelpMessage = Constants.GremlinDatabaseThroughputHelpMessage)]
+        [Parameter(Mandatory = false, HelpMessage = Constants.CassandraKeyspaceThroughputHelpMessage)]
         public int? Throughput { get; set; }
 
         [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = ParentObjectParameterSet, HelpMessage = Constants.AccountObjectHelpMessage)]
         [ValidateNotNull]
-        public PSDatabaseAccount InputObject { get; set; }
+        public PSDatabaseAccount ParentObject { get; set; }
+
+        [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = ObjectParameterSet, HelpMessage = Constants.CassandraKeyspaceObjectHelpMessage)]
+        [ValidateNotNull]
+        public PSCassandraKeyspaceGetResults InputObject { get; set; }
 
         public override void ExecuteCmdlet()
         {
             if(ParameterSetName.Equals(ParentObjectParameterSet, StringComparison.Ordinal))
             {
-                ResourceIdentifier resourceIdentifier = new ResourceIdentifier(InputObject.Id);
+                ResourceIdentifier resourceIdentifier = new ResourceIdentifier(ParentObject.Id);
                 ResourceGroupName = resourceIdentifier.ResourceGroupName;
                 AccountName = resourceIdentifier.ResourceName;
             }
 
-            IDictionary<string, string> options = new Dictionary<string, string>();
+            CassandraKeyspaceGetResults readCassandraKeyspaceGetResults = null;
+            try
+            {
+                readCassandraKeyspaceGetResults = CosmosDBManagementClient.CassandraResources.GetCassandraKeyspace(ResourceGroupName, AccountName, Name);
+            }
+            catch (CloudException e)
+            {
+                if (e.Response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    throw new ResourceNotFoundException(message: string.Format(ExceptionMessage.NotFound, Name), innerException: e);
+                }
+            }
 
+            IDictionary<string, string> options = new Dictionary<string, string>();
             if (Throughput != null)
             {
                 options.Add("Throughput", Throughput.ToString());
             }
 
-            GremlinDatabaseCreateUpdateParameters gremlinDatabaseCreateUpdateParameters = new GremlinDatabaseCreateUpdateParameters
+            CassandraKeyspaceCreateUpdateParameters cassandraKeyspaceCreateUpdateParameters = new CassandraKeyspaceCreateUpdateParameters
             {
-                Resource = new GremlinDatabaseResource
+                Resource = new CassandraKeyspaceResource
                 {
                     Id = Name
                 },
                 Options = options
             };
 
-            if (ShouldProcess(Name, "Setting CosmosDB Gremlin Database"))
+            if (ShouldProcess(Name, "Updating an existing CosmosDB Cassandra Keyspace"))
             {
-                GremlinDatabaseGetResults gremlinDatabaseGetResults = CosmosDBManagementClient.GremlinResources.CreateUpdateGremlinDatabaseWithHttpMessagesAsync(ResourceGroupName, AccountName, Name, gremlinDatabaseCreateUpdateParameters).GetAwaiter().GetResult().Body;
-                WriteObject(new PSGremlinDatabaseGetResults(gremlinDatabaseGetResults));
+                CassandraKeyspaceGetResults cassandraKeyspaceGetResults = CosmosDBManagementClient.CassandraResources.CreateUpdateCassandraKeyspaceWithHttpMessagesAsync(ResourceGroupName, AccountName, Name, cassandraKeyspaceCreateUpdateParameters).GetAwaiter().GetResult().Body;
+                WriteObject(new PSCassandraKeyspaceGetResults(cassandraKeyspaceGetResults));
             }
 
             return;

@@ -20,11 +20,12 @@ using Microsoft.Azure.Commands.ResourceManager.Common.ArgumentCompleters;
 using Microsoft.Azure.Commands.CosmosDB.Helpers;
 using Microsoft.Azure.Management.Internal.Resources.Utilities.Models;
 using Microsoft.Azure.Management.CosmosDB.Models;
+using Microsoft.Azure.Commands.CosmosDB.Exceptions;
 
 namespace Microsoft.Azure.Commands.CosmosDB
 {
-    [Cmdlet(VerbsCommon.Set, ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "CosmosDBSqlContainer" , DefaultParameterSetName = NameParameterSet, SupportsShouldProcess = true), OutputType(typeof(PSSqlDatabaseGetResults))]
-    public class SetAzCosmosDBSqlContainer : AzureCosmosDBCmdletBase
+    [Cmdlet("Update", ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "CosmosDBSqlContainer" , DefaultParameterSetName = NameParameterSet, SupportsShouldProcess = true), OutputType(typeof(PSSqlDatabaseGetResults), typeof(ResourceNotFoundException))]
+    public class UpdateAzCosmosDBSqlContainer : AzureCosmosDBCmdletBase
     {
         [Parameter(Mandatory = true, ParameterSetName = NameParameterSet, HelpMessage = Constants.ResourceGroupNameHelpMessage)]
         [ResourceGroupCompleter]
@@ -39,7 +40,7 @@ namespace Microsoft.Azure.Commands.CosmosDB
         [ValidateNotNullOrEmpty]
         public string DatabaseName { get; set; }
 
-        [Parameter(Mandatory = true, HelpMessage = Constants.ContainerNameHelpMessage)]
+        [Parameter(Mandatory = false, HelpMessage = Constants.ContainerNameHelpMessage)]
         [ValidateNotNullOrEmpty]
         public string Name { get; set; }
 
@@ -50,10 +51,10 @@ namespace Microsoft.Azure.Commands.CosmosDB
         [Parameter(Mandatory = false, HelpMessage = Constants.PartitionKeyVersionHelpMessage)]
         public int? PartitionKeyVersion { get; set; }
 
-        [Parameter(Mandatory = true, HelpMessage = Constants.PartitionKeyKindHelpMessage)]
+        [Parameter(Mandatory = false, HelpMessage = Constants.PartitionKeyKindHelpMessage)]
         public string PartitionKeyKind { get; set; }
 
-        [Parameter(Mandatory = true, HelpMessage = Constants.PartitionKeyPathHelpMessage)]
+        [Parameter(Mandatory = false, HelpMessage = Constants.PartitionKeyPathHelpMessage)]
         [ValidateNotNullOrEmpty]
         public string[] PartitionKeyPath { get; set; }
 
@@ -86,13 +87,17 @@ namespace Microsoft.Azure.Commands.CosmosDB
 
         [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = ParentObjectParameterSet, HelpMessage = Constants.SqlDatabaseObjectHelpMessage)]
         [ValidateNotNull]
-        public PSSqlDatabaseGetResults InputObject { get; set; }
+        public PSSqlDatabaseGetResults ParentObject { get; set; }
+
+        [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = ObjectParameterSet, HelpMessage = Constants.SqlContainerObjectHelpMessage)]
+        [ValidateNotNull]
+        public PSSqlContainerGetResults InputObject { get; set; }
 
         public override void ExecuteCmdlet()
         {
             if(ParameterSetName.Equals(ParentObjectParameterSet, StringComparison.Ordinal))
             {
-                ResourceIdentifier resourceIdentifier = new ResourceIdentifier(InputObject.Id);
+                ResourceIdentifier resourceIdentifier = new ResourceIdentifier(ParentObject.Id);
                 ResourceGroupName = resourceIdentifier.ResourceGroupName;
                 DatabaseName = resourceIdentifier.ResourceName;
                 AccountName = ResourceIdentifierExtensions.GetDatabaseAccountName(resourceIdentifier);

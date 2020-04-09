@@ -112,3 +112,15 @@ function Test-CassandraOperationsCmdletsUsingInputObject
   $IsKeyspaceRemoved = Remove-AzCosmosDBCassandraKeyspace -InputObject $NewKeyspace -PassThru
   Assert-AreEqual $IsKeyspaceRemoved true
 }
+
+function Test-CreateUpdateCassandraKeyspace()
+{
+  $AccountName = "db2725"
+  $rgName = "CosmosDBResourceGroup2510"
+  $KeyspaceName = "db2"
+  $TableName = "table"
+
+  $cosmosDBAccount = Get-AzCosmosDBAccount -ResourceGroupName $rgName -Name $AccountName
+  $GetNonExistingKeyspace = New-AzCosmosDBCassandraKeyspace -ParentObject $cosmosDBAccount -Name $KeyspaceName
+  $NewKeyspace =  Set-AzCosmosDBCassandraKeyspace -InputObject $cosmosDBAccount -Name $KeyspaceName
+}

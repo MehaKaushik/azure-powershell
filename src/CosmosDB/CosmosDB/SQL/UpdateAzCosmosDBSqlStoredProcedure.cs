@@ -12,23 +12,19 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Generic;
 using System.Management.Automation;
-using System.Text;
-using System.Linq;
 using Microsoft.Azure.Commands.CosmosDB.Models;
-using System.Reflection;
-using Microsoft.Rest.Azure;
 using Microsoft.Azure.Commands.ResourceManager.Common.ArgumentCompleters;
 using Microsoft.Azure.Commands.CosmosDB.Helpers;
-using Microsoft.Azure.Management.Internal.Resources.Utilities.Models;
 using Microsoft.Azure.Management.CosmosDB.Models;
+using Microsoft.Azure.Management.Internal.Resources.Utilities.Models;
+using Microsoft.Azure.Commands.CosmosDB.Exceptions;
 
 namespace Microsoft.Azure.Commands.CosmosDB
 {
-    [Cmdlet(VerbsCommon.Set, ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "CosmosDBSqlUserDefinedFunction", DefaultParameterSetName = NameParameterSet, SupportsShouldProcess = true), OutputType(typeof(PSSqlUserDefinedFunctionGetResults))]
-    public class SetAzCosmosDBSqlUserDefinedFunction : AzureCosmosDBCmdletBase
+    [Cmdlet("Update", ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "CosmosDBSqlStoredProcedure", DefaultParameterSetName = NameParameterSet, SupportsShouldProcess = true), OutputType(typeof(PSSqlStoredProcedureGetResults), typeof(ResourceNotFoundException))]
+    public class UpdateAzCosmosDBSqlStoredProcedure : AzureCosmosDBCmdletBase
     {
         [Parameter(Mandatory = true, ParameterSetName = NameParameterSet, HelpMessage = Constants.ResourceGroupNameHelpMessage)]
         [ResourceGroupCompleter]
@@ -47,32 +43,36 @@ namespace Microsoft.Azure.Commands.CosmosDB
         [ValidateNotNullOrEmpty]
         public string ContainerName { get; set; }
 
-        [Parameter(Mandatory = true, HelpMessage = Constants.UserDefinedFunctionNameHelpMessage)]
+        [Parameter(Mandatory = false, HelpMessage = Constants.StoredProcedureNameHelpMessage)]
         [ValidateNotNullOrEmpty]
         public string Name { get; set; }
 
-        [Parameter(Mandatory = true, HelpMessage = Constants.UserDefinedFunctionBodyHelpMessage)]
+        [Parameter(Mandatory = false, HelpMessage = Constants.StoredProcedureBodyHelpMessage)]
         [ValidateNotNullOrEmpty]
         public string Body { get; set; }
 
         [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = ParentObjectParameterSet, HelpMessage = Constants.SqlContainerObjectHelpMessage)]
         [ValidateNotNull]
-        public PSSqlContainerGetResults InputObject { get; set; }
+        public PSSqlContainerGetResults ParentObject { get; set; }
+
+        [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = ObjectParameterSet, HelpMessage = Constants.SqlStoredProcedureObjectHelpMessage)]
+        [ValidateNotNull]
+        public PSSqlStoredProcedureGetResults InputObject { get; set; }
 
         public override void ExecuteCmdlet()
         {
             if (ParameterSetName.Equals(ParentObjectParameterSet))
             {
-                ResourceIdentifier resourceIdentifier = new ResourceIdentifier(InputObject.Id);
+                ResourceIdentifier resourceIdentifier = new ResourceIdentifier(ParentObject.Id);
                 ResourceGroupName = resourceIdentifier.ResourceGroupName;
                 ContainerName = resourceIdentifier.ResourceName;
                 DatabaseName = ResourceIdentifierExtensions.GetSqlDatabaseName(resourceIdentifier);
                 AccountName = ResourceIdentifierExtensions.GetDatabaseAccountName(resourceIdentifier);
             }
 
-            SqlUserDefinedFunctionCreateUpdateParameters sqlStoredProcedureCreateUpdateParameters = new SqlUserDefinedFunctionCreateUpdateParameters
+            SqlStoredProcedureCreateUpdateParameters sqlStoredProcedureCreateUpdateParameters = new SqlStoredProcedureCreateUpdateParameters
             {
-                Resource = new SqlUserDefinedFunctionResource
+                Resource = new SqlStoredProcedureResource
                 {
                     Id = Name,
                     Body = Body
@@ -80,10 +80,10 @@ namespace Microsoft.Azure.Commands.CosmosDB
                 Options = new Dictionary<string, string>() { }
             };
 
-            if (ShouldProcess(Name, "Setting CosmosDB Sql User Defined Function"))
+            if (ShouldProcess(Name, "Setting CosmosDB Sql Stored Procedure"))
             {
-                SqlUserDefinedFunctionGetResults sqlUserDefinedFunctionGetResults = CosmosDBManagementClient.SqlResources.CreateUpdateSqlUserDefinedFunctionWithHttpMessagesAsync(ResourceGroupName, AccountName, DatabaseName, ContainerName, Name, sqlStoredProcedureCreateUpdateParameters).GetAwaiter().GetResult().Body;
-                WriteObject(new PSSqlUserDefinedFunctionGetResults(sqlUserDefinedFunctionGetResults));
+                SqlStoredProcedureGetResults sqlStoredProcedureGetResults = CosmosDBManagementClient.SqlResources.CreateUpdateSqlStoredProcedureWithHttpMessagesAsync(ResourceGroupName, AccountName, DatabaseName, ContainerName, Name, sqlStoredProcedureCreateUpdateParameters).GetAwaiter().GetResult().Body;
+                WriteObject(new PSSqlStoredProcedureGetResults(sqlStoredProcedureGetResults));
             }
 
             return;

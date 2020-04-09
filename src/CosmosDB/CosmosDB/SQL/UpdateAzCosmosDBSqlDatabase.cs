@@ -15,20 +15,17 @@
 using System;
 using System.Collections.Generic;
 using System.Management.Automation;
-using System.Text;
-using System.Linq;
 using Microsoft.Azure.Commands.CosmosDB.Models;
-using System.Reflection;
-using Microsoft.Rest.Azure;
 using Microsoft.Azure.Commands.ResourceManager.Common.ArgumentCompleters;
 using Microsoft.Azure.Management.CosmosDB.Models;
 using Microsoft.Azure.Management.Internal.Resources.Utilities.Models;
 using Microsoft.Azure.Commands.CosmosDB.Helpers;
+using Microsoft.Azure.Commands.CosmosDB.Exceptions;
 
 namespace Microsoft.Azure.Commands.CosmosDB
 {
-    [Cmdlet(VerbsCommon.Set, ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "CosmosDBTable", DefaultParameterSetName = NameParameterSet, SupportsShouldProcess = true), OutputType(typeof(PSTableGetResults))]
-    public class SetAzCosmosDBTable : AzureCosmosDBCmdletBase
+    [Cmdlet("Update", ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "CosmosDBSqlDatabase", DefaultParameterSetName = NameParameterSet, SupportsShouldProcess = true), OutputType(typeof(PSSqlDatabaseGetResults), typeof(ResourceNotFoundException))]
+    public class UpdateAzCosmosDBSqlDatabase : AzureCosmosDBCmdletBase
     {
         [Parameter(Mandatory = true, ParameterSetName = NameParameterSet, HelpMessage = Constants.ResourceGroupNameHelpMessage)]
         [ResourceGroupCompleter]
@@ -39,46 +36,49 @@ namespace Microsoft.Azure.Commands.CosmosDB
         [ValidateNotNullOrEmpty]
         public string AccountName { get; set; }
 
-        [Parameter(Mandatory = true, HelpMessage = Constants.TableNameHelpMessage)]
+        [Parameter(Mandatory = false, HelpMessage = Constants.DatabaseNameHelpMessage)]
         [ValidateNotNullOrEmpty]
         public string Name { get; set; }
 
-        [Parameter(Mandatory = false, HelpMessage = Constants.TableThroughputHelpMessage)]
+        [Parameter(Mandatory = false, HelpMessage = Constants.SqlDatabaseThroughputHelpMessage)]
         public int? Throughput { get; set; }
 
         [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = ParentObjectParameterSet, HelpMessage = Constants.AccountObjectHelpMessage)]
         [ValidateNotNull]
-        public PSDatabaseAccount InputObject { get; set; }
+        public PSDatabaseAccount ParentObject { get; set; }
+
+        [Parameter(Mandatory = true, ValueFromPipeline = true, ParameterSetName = ObjectParameterSet, HelpMessage = Constants.SqlDatabaseObjectHelpMessage)]
+        [ValidateNotNull]
+        public PSSqlDatabaseGetResults InputObject { get; set; }
 
         public override void ExecuteCmdlet()
         {
             if(ParameterSetName.Equals(ParentObjectParameterSet, StringComparison.Ordinal))
             {
-                ResourceIdentifier resourceIdentifier = new ResourceIdentifier(InputObject.Id);
+                ResourceIdentifier resourceIdentifier = new ResourceIdentifier(ParentObject.Id);
                 ResourceGroupName = resourceIdentifier.ResourceGroupName;
                 AccountName = resourceIdentifier.ResourceName;
             }
 
             IDictionary<string, string> options = new Dictionary<string, string>();
-
             if (Throughput != null)
             {
                 options.Add("Throughput", Throughput.ToString());
             }
 
-            TableCreateUpdateParameters tableCreateUpdateParameters = new TableCreateUpdateParameters
+            SqlDatabaseCreateUpdateParameters sqlDatabaseCreateUpdateParameters = new SqlDatabaseCreateUpdateParameters
             {
-                Resource = new TableResource
+                Resource = new SqlDatabaseResource
                 {
                     Id = Name
                 },
                 Options = options
             };
 
-            if (ShouldProcess(Name, "Setting CosmosDB Table"))
+            if (ShouldProcess(Name, "Setting CosmosDB Sql Database"))
             {
-                TableGetResults tableGetResults = CosmosDBManagementClient.TableResources.CreateUpdateTableWithHttpMessagesAsync(ResourceGroupName, AccountName, Name, tableCreateUpdateParameters).GetAwaiter().GetResult().Body;
-                WriteObject(new PSTableGetResults(tableGetResults));
+                SqlDatabaseGetResults sqlDatabaseGetResults = CosmosDBManagementClient.SqlResources.CreateUpdateSqlDatabaseWithHttpMessagesAsync(ResourceGroupName, AccountName, Name, sqlDatabaseCreateUpdateParameters).GetAwaiter().GetResult().Body;
+                WriteObject(new PSSqlDatabaseGetResults(sqlDatabaseGetResults));
             }
 
             return;
